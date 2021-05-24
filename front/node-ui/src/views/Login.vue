@@ -30,9 +30,9 @@
             </div>
         </div>        
         <div class="form-group">
-            <button type="submit" class="btn btn-primary btn-block loginLocales">Ingresar</button>
-                                      <button class="btn btn-primary w-25" id="login" @click.prevent="login" v-if="!isLoggingIn">Login</button>
-                            <button class="btn btn-primary w-25" disabled @click.prevent="login" v-if="isLoggingIn"><loader-component width="30"></loader-component></button>
+            <!-- <button type="submit" class="btn btn-primary btn-block ">Ingresar</button> -->
+            <button class="btn btn-primary btn-block" id="login" @click.prevent="AuthLogin" v-if="!isLoggingIn">Ingresar</button>
+            <button class="btn btn-primary btn-block" disabled @click.prevent="AuthLogin" v-if="isLoggingIn"><loader-component width="30"></loader-component></button>
         </div>
         <div class="clearfix">
             <!--<label class="pull-left checkbox-inline"><input type="checkbox"> Remember me</label>-->
@@ -50,7 +50,7 @@
 <script>
 import LoaderComponent from '../components/LoadingComponent'
 
-import { mapActions } from 'vuex';
+import { mapActions, mapState } from 'vuex';
 
 
 export default {
@@ -73,17 +73,25 @@ export default {
   methods: {
     ...mapActions(["login"]),
 
-    login() {
+    AuthLogin() {
             this.isLoggingIn = true
+            this.login(this.usuario)
+           
+
             setTimeout(() => {
                 this.isLoggingIn = false
-                this.isAlertShow = true
-                setTimeout(() => this.redirect(), 1000)
+                this.isAlertShow = true                
+                this.perfil === 'Admin' ? setTimeout(() => this.redirect('home1'), 1000) : setTimeout(() => this.redirect('about'), 1000) 
+                //setTimeout(() => this.redirect(), 1000)
             }, 1000)
         },
-        redirect() {
-            this.$router.push({name: 'home1'})
+        redirect(modulo) {
+            this.$router.push({name: modulo})
         }
+  },
+
+  computed:{
+    ...mapState(["perfil"])
   }
 
 }
@@ -207,7 +215,7 @@ export default {
 }
 .login-panel {
     position: relative;
-    padding: 200px 0;
+    padding: 52px 0;
     .alert {
         opacity: 0;
         position: absolute;
