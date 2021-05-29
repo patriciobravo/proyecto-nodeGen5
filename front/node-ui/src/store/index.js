@@ -8,7 +8,9 @@ export default new Vuex.Store({
   state: {
     token: null,
     perfil: '',
-    showHome:''
+    showHome: '',
+    itemSolicitudes: [],
+    itemProductos: []
   },
   mutations: {
     setToken(state, payload) {
@@ -17,6 +19,11 @@ export default new Vuex.Store({
 
     setPerfil(state, payload) {
       state.perfil = payload
+    },
+
+    setProductos(state, payload) {
+      state.itemProductos = payload
+      console.log(state.itemProductos)
     }
   },
   actions: {
@@ -58,6 +65,27 @@ export default new Vuex.Store({
       localStorage.removeItem('token')
       commit('setToken', null)
     },
+
+    ListProductos({ commit}) {
+      try {
+     
+      axios.get("http://localhost:3001/api/producto").then((response) => {
+        const resProd = response.data.items;
+       // commit('setToken', resDB)
+        commit('setProductos', resProd)
+        //localStorage.setItem('token', resDB)
+        console.log(resProd)
+        //console.log(resDB)
+        //console.log(response.data.data.perfil)
+        //this.$router.push({name:'about'})
+        return resProd
+
+      });
+      } catch (error) {
+        console.log('error: ', error)
+      }
+    },
+
 
    
   },

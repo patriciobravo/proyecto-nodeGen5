@@ -8,6 +8,7 @@
     <b-collapse id="nav-collapse" is-nav>
       <b-navbar-nav>
         <b-nav-item href="#">Link</b-nav-item>
+        <router-link to="/">Home</router-link> 
          <b-button v-b-toggle.sidebar-no-header>Toggle Sidebar</b-button>
         <b-nav-item href="#" disabled>Disabled</b-nav-item>
       </b-navbar-nav>

@@ -1,0 +1,54 @@
+[
+{
+    "seccion": "Valores y fechas" , 
+    "links":[
+        {"link": "UF", "url": "http://www.sii.cl/valores_y_fechas/uf/uf2017.htm" },
+        {"link": "Dólar", "url": "http://www.sii.cl/valores_y_fechas/dolar/dolar2017.htm" },
+        {"link": "UTM-UTA-IPC" , "url": "http://www.sii.cl/valores_y_fechas/utm/utm2017.htm" },
+        {"link": "Datos y valores de Renta" , "url": "http://www.sii.cl/valores_y_fechas/renta/datos_informativos_2017.html" },
+        {"link": "Datos y valores de IVA" , "url": "http://www.sii.cl/valores_y_fechas/porcentaje_de_reajuste.html" },
+        {"link": "Otros valores" , "url": "http://www.sii.cl/valores_y_fechas/petroleo/petro2016.htm" }
+    ]
+},
+{
+    "seccion": "Normativa y legislación",
+    "links":[
+        {"link": "Circulares" , "url": "http://www.sii.cl/normativa_legislacion/circulares/2017/indcir2017.htm" },
+        {"link": "Resoluciones" , "url": "http://www.sii.cl/normativa_legislacion/resoluciones/2017/res_ind2017.htm" },
+        {"link": "Consulta pública de normas" , "url": "https://www4.sii.cl/consultaProyectosNormativosInternet/#Inicio" },
+        {"link": "Administrador de contenido normativo" , "url": "http://www3.sii.cl/normaInternet/" },
+        {"link": "Legislación tributaria y convenios internacionales" , "url": "http://www.sii.cl/normativa_legislacion/legislacion_tributaria_basica.html" },
+        {"link": "Jurisprudencia y tribunales" , "url": "http://www.sii.cl/normativa_legislacion/jurisprudencia_judicial/indice_jjud.htm" }
+    ]
+},
+{
+    "seccion": "Redes sociales",
+    "links": [
+        {"link": "Facebook" , "url": "https://www.facebook.com/impuestosinternoschile/" },
+        {"link": "Twitter" , "url": "https://twitter.com/SII_Chile" },
+        {"link": "Youtube" , "url": "https://www.youtube.com/user/sii/" },
+        {"link": "RSS"  , "url" : "http://www.sii.cl/redes_sociales/rss.html" },
+        {"link": "App e-rut" , "url": "http://www.sii.cl/ayudas/apps/erut/ayuda_app_erut.html" },
+        {"link": "App e-Renta" , "url": "http://www.sii.cl/ayudas/apps/erenta/ayuda_app_erenta.html" }
+    ]
+},
+{
+    "seccion": "Sitios de interés",
+    "links": [
+        {"link": "Aplicaciones y documentos" , "url": "http://www.sii.cl/sitios_de_interes/aplicaciones_para_entidades_externas.html" },
+        {"link": "Web útiles" , "url": "http://www.sii.cl/sitios_de_interes/descargas.html" },
+        {"link": "Sitios de gobierno relacionados" , "url": "http://www.sii.cl/sitios_de_interes/ministerios.html" },
+        {"link": "Organismos relacionados" , "url": "http://www.sii.cl/sitios_de_interes/organismos_tributarios.html" }
+    ]
+},
+{
+    "seccion": "Sobre el SII",
+    "links": [
+        {"link": "Nuestro Servicio" , "url": "http://www.sii.cl/sobre_el_sii/mision.html" },
+        {"link": "Trabaja con nosotros" , "url": "http://www.sii.cl/sobre_el_sii/trabaja_con_nosotros.html" },
+        {"link": "Gestión y estadísticas" , "url": "http://www.sii.cl/sobre_el_sii/estadisticas_y_estudios_del_sii.html" },
+        {"link": "Términos de uso del sitio web" , "url": "http://www.sii.cl/sobre_el_sii/terminos_sitio_web.html" },
+        {"link": "Recomendaciones de seguridad" , "url": "http://www.sii.cl/sobre_el_sii/recomendaciones_seguridad.htm" }
+    ]
+}
+]

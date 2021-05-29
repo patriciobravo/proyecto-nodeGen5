@@ -1,0 +1,82 @@
+[
+    {
+        
+        "numS": "5645908",
+        "fechaS": "23-02-2021",
+        "antiguedad": 16,
+        "tipoS": "Beneficio Dental",
+        "rutA": "23610108-8",
+        "nomAfiliado":"Ariel Cantu Dedes",        
+        "TipoA": "ACTIVO",
+        "regional":"Dirección Nacional",
+        "montoS": 197980,
+        "montoR": 94140,
+        "estado": "RECIBIDA"
+    },
+    {
+        "numS": "5645908",
+        "fechaS": "23-02-2021",
+        "antiguedad": 16,
+        "tipoS": "Beneficio Dental",
+        "rutA": "23610108-8",
+        "nomAfiliado":"Ariel Cantu Dedes",        
+        "TipoA": "ACTIVO",
+        "regional":"Dirección Nacional",
+        "montoS": 197980,
+        "montoR": 94140,
+        "estado": "RECIBIDA"
+    },
+    {
+        "numS": "5645908",
+        "fechaS": "23-02-2021",
+        "antiguedad": 9,
+        "tipoS": "Beneficio Dental",
+        "rutA": "23610108-8",
+        "nomAfiliado":"Ariel Cantu Dedes",        
+        "TipoA": "ACTIVO",
+        "regional":"Dirección Nacional",
+        "montoS": 197980,
+        "montoR": 94140,
+        "estado": "RECIBIDA"
+    },
+    {
+        "numS": "5645908",
+        "fechaS": "23-02-2021",
+        "antiguedad": 5,
+        "tipoS": "Beneficio Dental",
+        "rutA": "23610108-8",
+        "nomAfiliado":"Ariel Cantu Dedes",        
+        "TipoA": "ACTIVO",
+        "regional":"Dirección Nacional",
+        "montoS": 197980,
+        "montoR": 94140,
+        "estado": "RECIBIDA"
+    },
+    {
+        "numS": "5645908",
+        "fechaS": "23-02-2021",
+        "antiguedad": 4,
+        "tipoS": "Beneficio Dental",
+        "rutA": "23610108-8",
+        "nomAfiliado": "Ariel Cantu Dedes",        
+        "TipoA": "ACTIVO",
+        "regional":"Dirección Nacional",
+        "montoS": 197980,
+        "montoR": 94140,
+        "estado": "RECIBIDA"
+    },
+    {
+        "numS": "5645908",
+        "fechaS": "23-02-2021",
+        "antiguedad": 3,
+        "tipoS": "Beneficio Dental",
+        "rutA": "23610108-8",
+        "nomAfiliado":"Ariel Cantu Dedes",        
+        "TipoA": "ACTIVO",
+        "regional":"Dirección Nacional",
+        "montoS": 197980,
+        "montoR": 94140,
+        "estado": "RECIBIDA"
+    }
+    
+]

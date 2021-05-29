@@ -1,7 +1,7 @@
 <template>
   
   <div>
-    <top-component ></top-component>
+    <!-- <top-component ></top-component> -->
 
     <div class="row">
             <side-component></side-component>

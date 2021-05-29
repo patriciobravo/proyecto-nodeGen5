@@ -215,7 +215,7 @@ export default {
 }
 .login-panel {
     position: relative;
-    padding: 52px 0;
+   // padding: 52px 0;
     .alert {
         opacity: 0;
         position: absolute;
@@ -235,6 +235,11 @@ export default {
             margin: 10px;
         }
     }
+}
+
+input-group-addon, .input-group-btn {
+    width: 16% !important;
+  
 }
 
 </style>

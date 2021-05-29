@@ -75,7 +75,7 @@ function getProducto(req, res,next) {
     if( err || !items  ) return errorHandler(items, next, err)
 
     return res.json({
-      items: items
+      items
     })
   })
 }

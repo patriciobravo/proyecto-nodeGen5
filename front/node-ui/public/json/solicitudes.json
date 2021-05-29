@@ -1,0 +1,112 @@
+[
+    {
+        "rutA": "23610108-8",
+        "numS": "5645908",
+        "fechaS": "23-02-2021",
+        "tipoS": "Beneficio Dental",
+        "TipoB": "Hijo/a",
+        "montoS": 197980,
+        "montoR": 94140,
+        "estado": "RECIBIDA"
+    },
+    {
+        "rutA": "23610108-8",
+        "numS": "5645907",
+        "fechaS": "23-02-2021",
+        "tipoS": "Beneficio Dental",
+        "TipoB": "Hijo/a",
+        "montoS": 18990,
+        "montoR": 94140,
+        "estado": "APROBADA"
+    },
+    {
+        "rutA": "23610108-8",
+        "numS": "5645906",
+        "fechaS": "23-02-2021",
+        "tipoS": "Beneficio Dental",
+        "TipoB": "Hijo/a",
+        "montoS": 19990,
+        "montoR": 94140,
+        "estado": "PAGAR"
+    },
+    {
+        "rutA": "23610108-8",
+        "numS": "5645905",
+        "fechaS": "23-02-2021",
+        "tipoS": "Beneficio Dental",
+        "TipoB": "Hijo/a",
+        "montoS": 22990,
+        "montoR": 94140,
+        "estado": "PAGADA"
+    },
+    {
+        "rutA": "23610108-8",
+        "numS": "5645904",
+        "fechaS": "23-02-2021",
+        "tipoS": "Beneficio Dental",
+        "TipoB": "Hijo/a",
+        "montoS": 14000,
+        "montoR": 94140,
+        "estado": "RECHAZA"
+    },
+    {
+        "rutA": "23610108-8",
+        "numS": "5645903",
+        "fechaS": "23-02-2021",
+        "tipoS": "Beneficio Dental",
+        "TipoB": "Hijo/a",
+        "montoS": 10990,
+        "montoR": 94140,
+        "estado": "RECIBIDA"
+    },
+    {
+        "rutA": "23610108-8",
+        "numS": "5645902",
+        "fechaS": "23-02-2021",
+        "tipoS": "Beneficio Dental",
+        "TipoB": "Hijo/a",
+        "montoS": 52980,
+        "montoR": 94140,
+        "estado": "RECIBIDA"
+    },
+    {
+        "rutA": "23610108-8",
+        "numS": "5645901",
+        "fechaS": "23-02-2021",
+        "tipoS": "Beneficio Medico",
+        "TipoB": "Hijo/a",
+        "montoS": 61880,
+        "montoR": 94140,
+        "estado": "FINALIZA"
+    },
+    {
+        "rutA": "23610108-8",
+        "numS": "5645909",
+        "fechaS": "23-02-2021",
+        "tipoS": "Beneficio Dental",
+        "TipoB": "Hijo/a",
+        "montoS": 80500,
+        "montoR": 94140,
+        "estado": "RECIBIDA"
+    },
+    {
+        "rutA": "23610108-8",
+        "numS": "5645900",
+        "fechaS": "23-02-2021",
+        "tipoS": "Beneficio Dental",
+        "TipoB": "Hijo/a",
+        "montoS": 990,
+        "montoR": 94140,
+        "estado": "RECIBIDA"
+    },
+    {
+        "rutA": "23610108-8",
+        "numS": "5645918",
+        "fechaS": "23-02-2021",
+        "tipoS": "Beneficio Dental",
+        "TipoB": "Hijo/a",
+        "montoS": 17850,
+        "montoR": 94140,
+        "estado": "RECIBIDA"
+    }
+]
