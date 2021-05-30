@@ -11,6 +11,17 @@
 
             <div class="col-12">
     <div class="form-group">
+       <div class="d-flex flex-row-reverse">
+        <div class="p-2">
+          <button
+            class="btn btn-sm btn-orange"
+            id="buttonCsv"
+            @click="OpenAddProducts"
+          >
+            + Nuevo Producto
+          </button>
+        </div>
+      </div>
       <div class="float-right bResultados">
         <label
           >Buscar en resultados:
@@ -68,7 +79,7 @@
                   title="Detalle Liquidacion"
                 ></i>
               </a>
-              <a v-if="data.item.estado === 'Recibida'" @click="deleteRequest">
+              <a v-if="data.item.estado === 'Recibida'" @click="DeleteProduct(data.item)">
                 <i
                   class="fa fa-trash-alt fa-2x text-danger ml-2"
                   title="Eliminar Solicitud"
@@ -76,7 +87,7 @@
               </a>
               <a
                 v-if="data.item.estado != 'Recibida'"
-                @click="checkDelete((option = 'No'))"
+                @click="DeleteProduct(data.item._id)"
               >
                 <i
                   class="fa fa-trash-alt fa-2x text-secondary ml-2"
@@ -130,10 +141,15 @@
 </template>
 
 <script>
+import Vue from 'vue';
 import ModalComponent from "../components/ModalComponent";
+import VueSweetalert2 from 'vue-sweetalert2';
+    import 'sweetalert2/dist/sweetalert2.min.css';
+
+Vue.use(VueSweetalert2);
 
 import { mapActions, mapState } from 'vuex';
-//import axios from 'axios';
+import axios from 'axios';
 export default {
      components: {
     ModalComponent,
@@ -234,8 +250,12 @@ export default {
   },
 
   methods:{
+    
 
     ...mapActions(["ListProductos"]),
+
+    //SERVICIOS
+
 
     currencyFormat(value) {
         return "$ " + this.numberWithCommas(value.toFixed(0));
@@ -289,8 +309,63 @@ export default {
 
     DetailProducts(data) {
               this.$refs.componente.DetailProducts(data);
+    },
+
+    OpenAddProducts(){
+       this.$refs.componente.OpenAddProducts();
+    },
+
+     DeleteProduct(id){
+       console.log(id)
+
+    this.$swal.fire({
+  title: 'Estas seguro de Eliminar este producto?',
+  showDenyButton: true,
+  //showCancelButton: true,
+  confirmButtonText: `Eliminar`,
+  denyButtonText: `No Eliminar`,
+}).then((result) => {
+  /* Read more about isConfirmed, isDenied below */
+  if (result.isConfirmed) {
+    //this.$swal.fire('Saved!', '', 'success')
+
+     const data = {
+     ProductoNom : this.ProductoNom,
+    precio : this.precio,
+    stock : this.stock,
+   // vendidos : req.body.vendidos,
+    producto_tipo : this.producto_tipo
+  }
+         console.log(this.token) 
+
+      try {
+     
+       axios({
+        method: "DELETE",
+        headers: {
+          "Content-type": "application/json",
+           'auth-token': this.token
+        },
+        url: `http://localhost:3001/api/producto/${id}`,
+       // data: id
+      }).then((response) => {
+         this.ListProductos();
+         this.modalDetailProducts = false;   
+         console.log(this.token) 
+
+      });
+      } catch (error) {
+        console.log('error: ', error)
+      }
+  } else if (result.isDenied) {
+    this.$swal.fire('Producto no eliminado', '', 'info')
+
+  }
+})
 
     },
+
+
 
 
   },
@@ -299,7 +374,7 @@ export default {
         this.ListProductos();
     },
     computed: {
-    ...mapState(["itemProductos"]),
+    ...mapState(["itemProductos","token"]),
     
   },
 

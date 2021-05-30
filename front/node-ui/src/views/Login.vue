@@ -237,8 +237,8 @@ export default {
     }
 }
 
-input-group-addon, .input-group-btn {
-    width: 16% !important;
+input-group-addon {
+    max-width: 16% !important;
   
 }
 

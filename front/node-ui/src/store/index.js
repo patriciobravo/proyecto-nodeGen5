@@ -10,11 +10,13 @@ export default new Vuex.Store({
     perfil: '',
     showHome: '',
     itemSolicitudes: [],
-    itemProductos: []
+    itemProductos: [],
+    itemTipoProductos: []
   },
   mutations: {
     setToken(state, payload) {
       state.token = payload;
+      console.log(state.token)
     },
 
     setPerfil(state, payload) {
@@ -23,7 +25,12 @@ export default new Vuex.Store({
 
     setProductos(state, payload) {
       state.itemProductos = payload
-      console.log(state.itemProductos)
+      //console.log(state.itemProductos)
+    },
+
+    setTipoProductos(state, payload) {
+      state.itemTipoProductos = payload
+      console.log(state.itemTipoProductos)
     }
   },
   actions: {
@@ -79,6 +86,19 @@ export default new Vuex.Store({
         //console.log(response.data.data.perfil)
         //this.$router.push({name:'about'})
         return resProd
+
+      });
+      } catch (error) {
+        console.log('error: ', error)
+      }
+    },
+
+    ListTipoProductos({ commit}) {
+      try {
+     
+      axios.get("http://localhost:3001/api/tipo_producto").then((response) => {
+        const resTipoProd = response.data.items;
+        commit('setTipoProductos', resTipoProd)
 
       });
       } catch (error) {
