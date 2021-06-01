@@ -49,7 +49,7 @@
                   </div>
                 </div>
               </div>
-              <div class="col-lg col-md-4 col-sm-6 mb-4">
+              <div class="col-lg col-md-4 col-sm-6 mb-4" v-if="this.perfil=== 'Admin'">
                 <div class="stats-small stats-small--1 card card-small">
                   <div class="card-body p-0 d-flex">
                     <div class="d-flex flex-column m-auto">
@@ -67,16 +67,17 @@
                   </div>
                 </div>
               </div>
-              <div class="col-lg col-md-4 col-sm-12 mb-4">
+              <div class="col-lg col-md-4 col-sm-12 mb-4" v-if="this.perfil=== 'Admin'">
                 <div class="stats-small stats-small--1 card card-small">
                   <div class="card-body p-0 d-flex">
                     <div class="d-flex flex-column m-auto">
                       <div class="stats-small__data text-center">
-                        <span class="stats-small__label text-uppercase">Proveedores</span>
-                        <h6 class="stats-small__value count my-3" id="totalProveedores">0</h6>
+                        <!-- <span class="stats-small__label text-uppercase">Proveedores</span> -->
+                        <h6 class="stats-small__value count my-3" id="totalProveedores">{{this.itemTipoProductos.length}}</h6>
                       </div>
                       <div class="stats-small__data">
-                        <span class="stats-small__percentage stats-small__percentage--increase verProveedor">Ir a Proveedores</span>
+                        <router-link to="/tipoProductos">Ir a Tipo Productos </router-link>   
+                                            
                       </div>
                     </div>
                     <canvas height="120" class="blog-overview-stats-small-5"></canvas>
@@ -85,12 +86,12 @@
               </div>
             <!--</div>
              <div class="row home">-->
-              <div class="col-lg col-md-6 col-sm-6 mb-4">
+              <div class="col-lg col-md-6 col-sm-6 mb-4" v-if="this.perfil=== 'Admin'">
                 <div class="stats-small stats-small--1 card card-small">
                   <div class="card-body p-0 d-flex">
                     <div class="d-flex flex-column m-auto">
                       <div class="stats-small__data text-center">
-                        <span class="stats-small__label text-uppercase">Compras</span>
+                        <!-- <span class="stats-small__label text-uppercase">Compras</span> -->
                         <h6 class="stats-small__value count my-3 " id="totalCompras">0</h6>
                       </div>
                       <div class="stats-small__data">
@@ -101,7 +102,7 @@
                   </div>
                 </div>
               </div>
-              <div class="col-lg col-md-6 col-sm-6 mb-4">
+              <div class="col-lg col-md-6 col-sm-6 mb-4" v-if="this.perfil=== 'Admin'">
                 <div class="stats-small stats-small--1 card card-small">
                   <div class="card-body p-0 d-flex">
                     <div class="d-flex flex-column m-auto">
@@ -117,7 +118,7 @@
                   </div>
                 </div>
               </div>
-              <div class="col-lg col-md-4 col-sm-6 mb-4">
+              <div class="col-lg col-md-4 col-sm-6 mb-4" v-if="this.perfil=== 'Admin'">
                 <div class="stats-small stats-small--1 card card-small">
                   <div class="card-body p-0 d-flex">
                     <div class="d-flex flex-column m-auto">
@@ -133,7 +134,7 @@
                   </div>
                 </div>
               </div>
-              <div class="col-lg col-md-4 col-sm-6 mb-4">
+              <div class="col-lg col-md-4 col-sm-6 mb-4" v-if="this.perfil=== 'Admin'">
                 <div class="stats-small stats-small--1 card card-small">
                   <div class="card-body p-0 d-flex">
                     <div class="d-flex flex-column m-auto">
@@ -149,7 +150,7 @@
                   </div>
                 </div>
               </div>
-              <div class="col-lg col-md-4 col-sm-12 mb-4 ">
+              <div class="col-lg col-md-4 col-sm-12 mb-4" v-if="this.perfil=== 'Admin'">
                 <div class="stats-small stats-small--1 card card-small iraDeudores">
                   <div class="card-body p-0 d-flex">
                     <div class="d-flex flex-column m-auto">
@@ -165,28 +166,143 @@
                   </div>
                 </div>
               </div>
+
+              <div v-if="this.perfil=== 'Cliente'">
+                <header>
+                    <div class="container">
+                        <h1 class="text-center">TIENDA</h1>
+                        <hr />
+                    </div>
+                </header>
+
+                <Tienda/>
+                <!-- END SECTION STORE -->
+                <!-- START SECTION SHOPPING CART -->
+                <section class="shopping-cart">
+                    <div class="container">
+                        <h1 class="text-center">CARRITO</h1>
+                        <hr />
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="shopping-cart-header">
+                                    <h6>Producto</h6>
+                                </div>
+                            </div>
+                            <div class="col-2">
+                                <div class="shopping-cart-header">
+                                    <h6 class="text-truncate">Precio</h6>
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="shopping-cart-header">
+                                    <h6>Cantidad</h6>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- ? START SHOPPING CART ITEMS -->
+                        <div class="shopping-cart-items shoppingCartItemsContainer"></div>
+                        <!-- ? END SHOPPING CART ITEMS -->
+
+                        <!-- START TOTAL -->
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="shopping-cart-total d-flex align-items-center">
+                                    <p class="mb-0">Total</p>
+                                    <p class="ml-4 mb-0 shoppingCartTotal">0€</p>
+                                    <div class="toast ml-auto bg-info" role="alert" aria-live="assertive" aria-atomic="true" data-delay="2000">
+                                        <div class="toast-header">
+                                            <span>✅</span>
+                                            <strong class="mr-auto ml-1 text-secondary">Elemento en el carrito</strong>
+                                            <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="toast-body text-white">
+                                            Se aumentó correctamente la cantidad
+                                        </div>
+                                    </div>
+                                    <button class="btn btn-success ml-auto comprarButton" type="button" data-toggle="modal" data-target="#comprarModal">Comprar</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- END TOTAL -->
+
+                        <!-- START MODAL COMPRA -->
+                        <div class="modal fade" id="comprarModal" tabindex="-1" aria-labelledby="comprarModalLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="comprarModalLabel">Datos para el envío</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <!-- ? STRIPE START -->
+                                        <form id="payment-form">
+                                            <div class="form-group">
+                                                <label for="email-element">Email</label>
+                                                <input type="email" class="form-control" id="email-element" aria-describedby="emailHelp" placeholder="E-mail" />
+                                            </div>
+                                            <div class="form-group">
+                                                <div id="card-element" class="form-control" style="height: 2.4em; padding-top: 0.7em;">
+                                                    <!--Stripe.js injects the Card Element-->
+                                                </div>
+                                            </div>
+                                            <button id="submit" class="btn btn-primary w-100">
+                                                <div class="spinner-border text-light hidden" id="spinner" role="status">
+                                                    <span class="sr-only">Loading...</span>
+                                                </div>
+                                                <span id="button-text">Pagar</span>
+                                            </button>
+                                            <p id="card-error" role="alert"></p>
+                                            <p class="result-message hidden">
+                                                Pago satisfactorio ✅ En breve recibirá su pedido
+                                            </p>
+                                        </form>
+                                        <!-- ? STRIPE END -->
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- END MODAL COMPRA -->
+                    </div>
+                </section>
+                <!-- END SECTION SHOPPING CART -->
+              </div>
+
+
             </div>
+
+            
 
 </template>
 
 <script>
+
+import Tienda from '../components/Tienda'
 import { mapActions, mapState } from 'vuex'
 export default {
+   components: {
+    Tienda
+  },
 
     methods:{
     
-      ...mapActions(["ListProductos"])
+      ...mapActions(["ListProductos", "ListTipoProductos"])
     },
 
     mounted(){
       this.ListProductos()
-      setTimeout(() => {
-        console.log(this.itemProductos.length)
-      }, 2000);
+      this.ListTipoProductos()
     },
 
     computed: {
-    ...mapState(["itemProductos"]),
+    ...mapState(["itemProductos", "itemTipoProductos", "perfil"]),
     
   },
 

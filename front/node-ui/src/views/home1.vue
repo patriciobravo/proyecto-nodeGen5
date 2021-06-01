@@ -5,10 +5,10 @@
 
     <div class="row">
             <side-component></side-component>
-        <main class="main-content col-lg-10 col-md-9 col-sm-12 p-0 offset-lg-1 offset-md-1">
+        <main class="main-content col-lg-10 col-md-9 col-sm-12 p-0 offset-lg-1 offset-md-1" >
 
           <div class="main-content-container container-fluid px-4">
-            <div class="page-header row no-gutters py-4 mb-3 border-bottom">
+            <div class="page-header row no-gutters py-4 mb-3 border-bottom" v-if="this.perfil=== 'Admin'">
               <div class="col-12  ">
                 <span class="text-uppercase page-subtitle">Dashboard</span>
                 <h3 class="page-title">Proyecto & Node Js</h3>
@@ -38,6 +38,7 @@ Vue.use(IconsPlugin)
 import HomeComponent from '../components/Home'
 import SideComponent from '../components/Sides.vue'
 import TopComponent from '../components/Tops.vue'
+import { mapState } from 'vuex'
 
 export default {
     
@@ -45,6 +46,11 @@ export default {
     SideComponent, 
     TopComponent 
     },
+
+
+    computed:{
+      ...mapState(["perfil"])
+    }
 
 
 }

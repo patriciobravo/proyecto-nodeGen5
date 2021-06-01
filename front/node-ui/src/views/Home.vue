@@ -1,54 +1,62 @@
 <template>
- <div class="login-form">
-     <div class="login-panel bg-white text-left">
-      <div class="alert alert-primary" role="alert" :style="{opacity: isAlertShow ? 1 : 0}">
-                        Login successfully. <small>waiting for redirect.</small>
-                        <loader-component width="30"></loader-component>
-                    </div>
-    <form @submit.prevent="login(usuario)">
-        <h3 class="text-center">Inicio de Sesión</h3>   
-        <div class="form-group">
-          <div class="input-group">
-                <span class="input-group-addon"><i class="fa fa-user"></i></span>
-                <input 
-                  type="email" 
-                  class="form-control"
-                  required="required"
-                  placeholder="Ingresa tu Email"
-                  v-model="usuario.email">
-            </div>
-        </div>
-        <div class="form-group">
-            <div class="input-group">
-                <span class="input-group-addon"><i class="fa fa-lock"></i></span>
-                <input 
-                  type="password" 
-                  class="form-control" 
-                  required="required"
-                  placeholder="Ingresa tu Contraseña"
-                  v-model="usuario.password">
-            </div>
-        </div>        
-        <div class="form-group">
-            <button type="submit" class="btn btn-primary btn-block loginLocales">Ingresar</button>
-                                      <button class="btn btn-primary w-25" id="login" @click.prevent="login" v-if="!isLoggingIn">Login</button>
-                            <button class="btn btn-primary w-25" disabled @click.prevent="login" v-if="isLoggingIn"><loader-component width="30"></loader-component></button>
-        </div>
-        <div class="clearfix">
-            <!--<label class="pull-left checkbox-inline"><input type="checkbox"> Remember me</label>-->
-              <p class="text-center"><a href="#" class="text-center">Olvidaste tu contraseña?</a></p>
-        </div>
-        <div class="or-seperator"><i>o</i></div>
-        <p class="text-center">Deseas <a href="#" class="regisWinplace">Registrarte</a> </p>        
-    </form>
+  <div id="app" >
+    <!-- <div id="nav">
+      <router-link to="/">Home</router-link> |
+      <router-link to="/about">About</router-link>
+      <button @click="cerrarSesion">cerra sesión</button>
+    </div> -->
+    <b-navbar toggleable="lg" type="dark" variant="info">
+    <b-navbar-brand to="/Home1"><strong>Node Js Gen 5</strong></b-navbar-brand>
 
-     </div>
+    <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
 
-</div>
+    <b-collapse id="nav-collapse" is-nav>
+      <b-navbar-nav>
+        <b-nav-item to="/Home1">Home</b-nav-item>
+        <!-- <router-link to="/Home1">Home</router-link>  -->
+         <!-- <b-button v-b-toggle.sidebar-no-header>Toggle Sidebar</b-button> -->
+        <!-- <b-nav-item href="#" disabled>Disabled</b-nav-item> -->
+      </b-navbar-nav>
+      
+
+      <!-- Right aligned nav items -->
+      <b-navbar-nav class="ml-auto">
+        <!-- <b-nav-form>
+          <b-form-input size="sm" class="mr-sm-2" placeholder="Search"></b-form-input>
+          <b-button size="sm" class="my-2 my-sm-0" type="submit">Search</b-button>
+        </b-nav-form> -->
+<!-- 
+        <b-nav-item-dropdown text="Lang" right>
+          <b-dropdown-item href="#">EN</b-dropdown-item>
+          <b-dropdown-item href="#">ES</b-dropdown-item>
+          <b-dropdown-item href="#">RU</b-dropdown-item>
+          <b-dropdown-item href="#">FA</b-dropdown-item>
+        </b-nav-item-dropdown> -->
+        <b-nav-item-dropdown right>
+          <!-- Using 'button-content' slot -->
+          <template #button-content>
+            <em><i class="fa fa-shopping-cart fa-2x text-white" aria-hidden="true"></i></em>
+          </template>
+          <b-dropdown-item href="#">Perfil</b-dropdown-item>
+          <b-dropdown-item href="#">Cerrar Sesión</b-dropdown-item>
+        </b-nav-item-dropdown>
+
+        <b-nav-item-dropdown right class="mt-2">
+          <!-- Using 'button-content' slot -->
+          <template #button-content>
+            <em>Usuario</em>
+          </template>
+          <b-dropdown-item href="#">Perfil</b-dropdown-item>
+          <b-dropdown-item href="#">Cerrar Sesión</b-dropdown-item>
+        </b-nav-item-dropdown>
+      </b-navbar-nav>
+    </b-collapse>
+  </b-navbar>
+    <router-view/>
+  </div>
 </template>
 
 <script>
-import LoaderComponent from '../components/LoadingComponent'
 
 import { mapActions } from 'vuex';
 
@@ -56,7 +64,6 @@ import { mapActions } from 'vuex';
 export default {
   name: 'Home',
   components: {
-    LoaderComponent
   },
 
   data(){

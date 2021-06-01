@@ -1,8 +1,9 @@
 import Vue from 'vue'
-import VueRouter from 'vue-router'
-//import Home from '../views/Home.vue'
-import Login from '../views/Login.vue'
-import Productos from '../views/Productos.vue'
+import VueRouter from 'vue-router';
+import Home from '../views/Home.vue'
+import Login from '../views/Login.vue';
+import Productos from '../views/Productos.vue';
+import TipoProductos from '../views/TipoProductos.vue'
 import Home1 from '../views/home1.vue'
 
 import store from '../store'
@@ -21,9 +22,19 @@ const routes = [
     component: Productos
   },
   {
+    path: '/tipoProductos',
+    name: 'TipoProductos',
+    component: TipoProductos
+  },
+  {
     path: '/home1',
-    name: 'home1',
+    name: 'Home1',
     component: Home1
+  },
+  {
+    path: '/home',
+    name: 'Home',
+    component: Home
   },
   {
     path: '/about',

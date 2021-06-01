@@ -10,6 +10,8 @@
             </div>
 
             <div class="col-12">
+                              <h3 class="page-title">Productos</h3>
+
     <div class="form-group">
        <div class="d-flex flex-row-reverse">
         <div class="p-2">
@@ -71,7 +73,7 @@
           <template v-slot:cell(ACCIONES)="data">
             <div class="row btnSolicitud">
               <a @click="DetailProducts(data.item)">
-                <i class="far fa-list-alt fa-2x cblue" title="Seguimiento"></i>
+                <i class="far fa-list-alt fa-2x cblue" title="Detalle Producto"></i>
               </a>
               <a @click="detalleSolicitud(data.item.estado)">
                 <i
@@ -79,21 +81,13 @@
                   title="Detalle Liquidacion"
                 ></i>
               </a>
-              <a v-if="data.item.estado === 'Recibida'" @click="DeleteProduct(data.item)">
+              <a @click="DeleteProduct(data.item._id)" >
                 <i
                   class="fa fa-trash-alt fa-2x text-danger ml-2"
-                  title="Eliminar Solicitud"
+                  title="Eliminar Producto"
                 ></i>
               </a>
-              <a
-                v-if="data.item.estado != 'Recibida'"
-                @click="DeleteProduct(data.item._id)"
-              >
-                <i
-                  class="fa fa-trash-alt fa-2x text-secondary ml-2"
-                  title="Eliminar Solicitud"
-                ></i>
-              </a>
+             
             </div>
           </template>
         </b-table>
@@ -174,8 +168,8 @@ export default {
 
             color: "#fff",
             size: "11px",
-            width: "15%",            
-            padding: "0 0 0 4%"
+            width: "17%",            
+            padding: "0 0 0 5%"
 
           },
         },
@@ -194,7 +188,7 @@ export default {
         },
         {
           key: "stock",
-          label: "Stock",
+          label: "Cantidad",
           sortable: true,
           align: "center",
           tdClass: "tabalign",
@@ -202,8 +196,8 @@ export default {
             background: "#0061a0",
             color: "#fff",
             size: "11px",
-            width: "16%",
-             padding: "0 0 0 4%"
+            width: "7%",
+             padding: "0 3% 0 4%"
 
           },
         },
@@ -218,8 +212,8 @@ export default {
             background: "#0061a0",
             color: "#fff",
             size: "11px",
-            width: "17%",
-             padding: "0 0 0 4%"
+            width: "11%",
+             padding: "0 0 0 8%"
           },
         },
         {
@@ -309,6 +303,8 @@ export default {
 
     DetailProducts(data) {
               this.$refs.componente.DetailProducts(data);
+             
+              console.log(data)
     },
 
     OpenAddProducts(){
@@ -396,12 +392,12 @@ input-group-addon, .input-group-btn {
 }
 .tabalign {
   text-align: right;
-  padding-right: 73px !important;
+  padding-right: 0% !important;
 }
 
 .montoR {
   text-align: right;
-  padding-right: 56px !important;
+  padding-right: 0% !important;
 }
 
 .antiguedad {

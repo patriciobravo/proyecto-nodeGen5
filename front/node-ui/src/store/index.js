@@ -8,10 +8,12 @@ export default new Vuex.Store({
   state: {
     token: null,
     perfil: '',
+    user: null,
     showHome: '',
     itemSolicitudes: [],
     itemProductos: [],
-    itemTipoProductos: []
+    itemTipoProductos: [],
+    env_loaded: 0,
   },
   mutations: {
     setToken(state, payload) {
@@ -19,6 +21,10 @@ export default new Vuex.Store({
       console.log(state.token)
     },
 
+    setUser(state, payload) {
+      state.user = payload
+      console.log(state.user)
+    },
     setPerfil(state, payload) {
       state.perfil = payload
     },
@@ -31,7 +37,13 @@ export default new Vuex.Store({
     setTipoProductos(state, payload) {
       state.itemTipoProductos = payload
       console.log(state.itemTipoProductos)
-    }
+    },
+
+    env_loaded(state, payload) {
+      state.env_loaded = payload;
+      console.log( state.env_loaded)
+    },
+
   },
   actions: {
     
@@ -49,6 +61,8 @@ export default new Vuex.Store({
         const resDB = response.data.data.token
         commit('setToken', resDB)
         commit('setPerfil', response.data.data.perfil)
+        commit('setUser', response.data.data.name)
+        console.log(response.data.data)
         localStorage.setItem('token', resDB)
         //console.log(resDB)
         //console.log(response.data.data.perfil)

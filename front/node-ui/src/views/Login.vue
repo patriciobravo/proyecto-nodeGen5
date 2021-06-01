@@ -2,7 +2,8 @@
  <div class="login-form">
      <div class="login-panel bg-white text-left">
       <div class="alert alert-primary" role="alert" :style="{opacity: isAlertShow ? 1 : 0}">
-                        Login successfully. <small>waiting for redirect.</small>
+                        Acceso correcto. <small>ingresando al portal.</small>
+             
                         <loader-component width="30"></loader-component>
                     </div>
     <form @submit.prevent="login(usuario)">
@@ -50,7 +51,7 @@
 <script>
 import LoaderComponent from '../components/LoadingComponent'
 
-import { mapActions, mapState } from 'vuex';
+import { mapActions, mapMutations, mapState } from 'vuex';
 
 
 export default {
@@ -72,6 +73,7 @@ export default {
 
   methods: {
     ...mapActions(["login"]),
+    ...mapMutations(["env_loaded"]),
 
     AuthLogin() {
             this.isLoggingIn = true
@@ -79,15 +81,24 @@ export default {
            
 
             setTimeout(() => {
-                this.isLoggingIn = false
-                this.isAlertShow = true                
-                this.perfil === 'Admin' ? setTimeout(() => this.redirect('home1'), 1000) : setTimeout(() => this.redirect('about'), 1000) 
-                //setTimeout(() => this.redirect(), 1000)
+               this.isLoggingIn = false
+               this.isAlertShow = true  
+                      
+               // this.perfil === 'Admin' ? 
+                setTimeout(() =>
+                 
+                this.$router.push("Home1").catch(()=>{ }),
+                this.env_loaded(1)
+                
+                , 1000) 
+                   
+                //: setTimeout(() => this.$router.push("About").catch(()=>{}), 1000) 
+               // setTimeout(() => this.redirect(), 1000)
             }, 1000)
         },
-        redirect(modulo) {
-            this.$router.push({name: modulo})
-        }
+        // redirect(modulo) {
+        //     this.$router.push({name: modulo})
+        // }
   },
 
   computed:{
@@ -210,7 +221,8 @@ export default {
 
 
   .widget {
-    margin: 0;
+   // margin: 0;
+        margin: -19px;
     height: unset;
 }
 .login-panel {
@@ -220,25 +232,32 @@ export default {
         opacity: 0;
         position: absolute;
         width: 100%;
-        top: 100px;
+        margin-top: 120%;
         transition: all .5s;
         &.alert-primary {
             background-color: #007BFF;
             color: #fff;
             font-size: 18px;
             border: none;
+           
+  
+    background: #1470a8 linear-gradient(
+180deg
+, #1470a8, #1470a8) repeat-x;
+    border-color: #b8d4e4 !important;
+
         }
         .widget {
             position: absolute;
-            right: 5px;
-            top: 0;
-            margin: 10px;
+           right: 11px;
+    top: 16px;
+           // margin: 10px;
         }
     }
 }
 
-input-group-addon {
-    max-width: 16% !important;
+.input-group-addon {
+ padding: 8px 24px 0 10px !important;
   
 }
 
