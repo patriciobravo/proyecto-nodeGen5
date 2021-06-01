@@ -32,6 +32,11 @@ const schemaProducto = mongoose.Schema({
     type: String,
     required: true,
   },
+  estado: {
+    type: String,
+    required: true,
+  }
+  ,
 //   producto_tipo: {
 //     type: String,
 //     required: true,

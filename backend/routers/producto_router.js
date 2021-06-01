@@ -6,7 +6,7 @@ const {
     getProducto,
     getIdProducto,
     deleteProducto,
-    updateProducto  } = require('../controllers/producto_controller');
+    updateProducto, imagen  } = require('../controllers/producto_controller');
 
     //Middleware  - Router
 router.param('productoId', productoId);
@@ -16,6 +16,7 @@ router.post('/producto', regProducto);
 router.get('/producto', getProducto);
 router.get('/producto/:productoId', getIdProducto);
 router.delete('/producto/:productoId', deleteProducto);
+router.get('/producto/imagen/:productoId', imagen);
 router.put('/producto/:id', updateProducto);
 
 

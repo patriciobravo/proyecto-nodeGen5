@@ -80,6 +80,7 @@ function getIdTipoProducto(req, res) {
 function deleteTipoProducto(req, res){
   
   const id = req.params.id;
+  console.log(id)
   ModelTipoProducto.findByIdAndRemove( id, (err, doctipoProducto) => {
 
     if( err || !doctipoProducto  ) return errorHandler(doctipoProducto, next, err)

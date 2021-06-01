@@ -98,11 +98,12 @@ async function login(req, res) {
         process.env.TOKEN_SECRET,
         { expiresIn: process.env.CADUCIDAD_TOKEN, }
       )
-      const perfil = userLogin.perfil
+    const perfil = userLogin.perfil
+    const name = userLogin.name
 
     res.header('auth-token', token).json({
         error: null,
-        data: { token, perfil }
+        data: { token, perfil, name }
     })
 
 }

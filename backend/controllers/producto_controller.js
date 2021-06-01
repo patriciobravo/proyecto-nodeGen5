@@ -13,7 +13,20 @@ function errorHandler(data, next, err = null){
       return next(error)
       
     }
-  }
+}
+
+
+const imagen = (req, res) =>{
+
+   
+
+  res.set('Content-Type', req.DocProducto.imagen.contentType);
+  res.set('xxxxx', 'aaaaabb');
+
+  return res.send(req.DocProducto.imagen.data);
+  
+}
+
 
 function productoId(req, res, next, id) {
 
@@ -40,18 +53,24 @@ function regProducto(req, res, next){
     precio : req.body.precio,
     stock : req.body.stock,
     vendidos : req.body.vendidos,
-    producto_tipo : req.body.producto_tipo
+    producto_tipo: req.body.producto_tipo,
+    imagen: req.body.imagen,
+    estado: req.body.estado
   }
+  console.log(data)
+ 
 
   const modelProducto = new ModelProducto(data);
 
-  if(req.files){
+  if (req.files) {
 
+    console.log(req.files);
+    console.log('aqui')
     modelProducto.imagen.data = req.files.imagen.data;
     modelProducto.imagen.contentType = req.files.imagen.mimetype;
   }
   modelProducto.save( (err, DocProducto) => {
-
+   
     if( err || !DocProducto  ) return errorHandler(DocProducto, next, err)
 
     DocProducto = DocProducto.toObject();
@@ -69,7 +88,7 @@ function getProducto(req, res,next) {
   const Request = ModelProducto.find();
 
   Request
-    .select('-imagen')
+    //.select('-imagen')
     .exec( (err, items) =>{
     
     if( err || !items  ) return errorHandler(items, next, err)
@@ -130,7 +149,8 @@ module.exports = {
   getProducto,
   getIdProducto,
   deleteProducto,
-  updateProducto
+  updateProducto,
+  imagen
   
 }
   

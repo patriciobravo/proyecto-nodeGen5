@@ -1,15 +1,30 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const router = require('./routers/index');
+const bodyparser = require('body-parser');
 const fileUpload = require('express-fileupload');
 require('dotenv').config();
 const cors = require('cors');
 
+var busboy = require('connect-busboy');
+//...
 
 //Express
 const app = express();
 
 app.use(express.json());
+app.use(busboy()); 
+
+
+// capturar body
+//app.use(bodyparser({ uploadDir: path.join(__dirname, 'files'), keepExtensions: true })); 
+app.use(bodyparser.urlencoded({ extended: false }));
+app.use(bodyparser.json());
+
+app.get('/app/*', function (req, res) {
+  res.sendFile(__dirname+"/public/index.html");
+});
+
 
 //-Middelware - file upload
 app.use(fileUpload({
