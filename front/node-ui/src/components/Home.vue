@@ -92,10 +92,10 @@
                     <div class="d-flex flex-column m-auto">
                       <div class="stats-small__data text-center">
                         <!-- <span class="stats-small__label text-uppercase">Compras</span> -->
-                        <h6 class="stats-small__value count my-3 " id="totalCompras">0</h6>
+                        <h6 class="stats-small__value count my-3 " id="totalCompras">{{this.itemUsuarios.length}}</h6>
                       </div>
                       <div class="stats-small__data">
-                        <span class="stats-small__percentage stats-small__percentage--increase verCompras ">Ir a Compras </span>
+                        <router-link to="/usuarios">Ir a Usuarios </router-link>   
                       </div>
                     </div>
                     <canvas height="120" class="blog-overview-stats-small-1"></canvas>
@@ -293,16 +293,17 @@ export default {
 
     methods:{
     
-      ...mapActions(["ListProductos", "ListTipoProductos"])
+      ...mapActions(["ListProductos", "ListTipoProductos", "ListUsuarios"])
     },
 
     mounted(){
       this.ListProductos()
       this.ListTipoProductos()
+      this.ListUsuarios(this.token)
     },
 
     computed: {
-    ...mapState(["itemProductos", "itemTipoProductos", "perfil"]),
+    ...mapState(["itemProductos", "itemTipoProductos", "perfil", "token", "itemUsuarios"]),
     
   },
 

@@ -87,7 +87,7 @@ export default {
                // this.perfil === 'Admin' ? 
                 setTimeout(() =>
                  
-                this.$router.push("Home1").catch(()=>{ }),
+                this.$router.push("Dashboard").catch(()=>{ }),
                 this.env_loaded(1)
                 
                 , 1000) 

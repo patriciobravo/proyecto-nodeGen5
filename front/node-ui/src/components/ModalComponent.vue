@@ -170,7 +170,7 @@
       </div>
     </b-modal>
 
-     <b-modal
+    <b-modal
      
       v-model="modalDetailTipoProducts"
       size="lg"
@@ -313,6 +313,106 @@
       </div>
     </b-modal>
 
+     <b-modal
+     
+      v-model="modalAddUsuarios"
+      size="lg"
+      no-close-on-esc
+      no-close-on-backdrop    
+      no-fade
+    >
+      <div slot="modal-header">
+        <h4 class="titleDocument">Detalle Usuarios <b> {{this.usuarioNom}}</b></h4>
+      </div>
+
+       <div slot="default" >        
+
+        <div class="col-lg-12 mt-1">
+          <div class="row mb-2">
+            <div class="col-lg-2 mt-2">
+              <span
+                ><h5><strong>Nombre</strong></h5></span
+              >
+            </div>
+            <div class="col-lg-4">
+              <b-form-input
+                size="sm"
+                class="form-control"
+                placeholder="Ingrese Nombre "               
+                v-model="usuarioNom"
+              >
+              </b-form-input>             
+            </div>
+
+            <div class="col-lg-2 mt-2">
+              <span><h5><strong>Email</strong></h5></span>
+            </div>
+            <div class="col-lg-4">
+
+               <b-form-input
+                size="sm"
+                class="form-control"
+                placeholder="Ingrese Nombre "               
+                v-model="usuarioEmail"
+              >
+              </b-form-input>                 
+            </div>
+
+          </div>
+           <div class="row mb-2">
+            <div class="col-lg-2 mt-2">
+              <span
+                ><h5><strong>Perfil</strong></h5></span
+              >
+            </div>
+            <div class="col-lg-4">
+              <b-form-input
+                size="sm"
+                class="form-control"
+                placeholder="Ingrese Nombre "               
+                v-model="usuarioPerfil"
+              >
+              </b-form-input>             
+            </div>
+
+           
+
+          </div>
+
+
+        </div>
+
+      
+      </div>
+      <div slot="modal-footer">
+         <button
+          id="btnClass"
+          class="btn btn-primary btn-sm"
+          @click="AddTipoProduct"
+          v-if="isButton"
+
+        >
+           + Agregar
+        </button>
+         <button
+          id="btnClass"
+          class="btn btn-primary btn-sm"
+          @click="UpTipoProduct"
+          v-if="!isButton"
+        >
+          Actualizar
+        </button>
+        <button
+          id="btnClass"
+          class="btn btn-red btn-sm"
+          @click="modalAddUsuarios = false"
+        >
+          Cerrar
+        </button>
+      </div>
+    </b-modal>
+
+
    
   </div>
 </template>
@@ -330,6 +430,7 @@ export default {
       //modalVerificacion: false,
       //modalvalidacionExito: false,
       modalDetailProducts: false,
+      modalAddUsuarios: false,
       //modalImagenes: false,
 
       bntRequest: true,
@@ -345,7 +446,10 @@ export default {
       estado_producto: null,
       stock: "",
       vendidos: "",
-      imagen:''
+      imagen:'',
+      usuarioNom:'',
+      usuarioEmail:'',
+      usuarioPerfil:''
     };
   },
 
@@ -441,6 +545,15 @@ export default {
       //this.producto_tipo= null;
 
     },
+
+    OpenAddUsuario(){
+      this.isButton = true;
+      this.modalAddUsuarios = true;    
+      //this.ListTipoProductos();
+      //this.producto_tipo= null;
+
+    },
+    
 
     AddProduct(){
 

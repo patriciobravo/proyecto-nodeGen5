@@ -13,17 +13,16 @@ export default new Vuex.Store({
     itemSolicitudes: [],
     itemProductos: [],
     itemTipoProductos: [],
+    itemUsuarios:[],
     env_loaded: 0,
   },
   mutations: {
     setToken(state, payload) {
       state.token = payload;
-      console.log(state.token)
     },
 
     setUser(state, payload) {
       state.user = payload
-      console.log(state.user)
     },
     setPerfil(state, payload) {
       state.perfil = payload
@@ -31,18 +30,20 @@ export default new Vuex.Store({
 
     setProductos(state, payload) {
       state.itemProductos = payload
-      //console.log(state.itemProductos)
     },
 
     setTipoProductos(state, payload) {
       state.itemTipoProductos = payload
-      console.log(state.itemTipoProductos)
     },
 
     env_loaded(state, payload) {
       state.env_loaded = payload;
-      console.log( state.env_loaded)
     },
+
+    setUsuarios(state, payload) {
+      state.itemUsuarios = payload;
+      console.log(state.itemUsuarios)
+    }
 
   },
   actions: {
@@ -62,11 +63,8 @@ export default new Vuex.Store({
         commit('setToken', resDB)
         commit('setPerfil', response.data.data.perfil)
         commit('setUser', response.data.data.name)
-        console.log(response.data.data)
         localStorage.setItem('token', resDB)
-        //console.log(resDB)
-        //console.log(response.data.data.perfil)
-        //this.$router.push({name:'about'})
+      
 
       });
       } catch (error) {
@@ -90,15 +88,9 @@ export default new Vuex.Store({
     ListProductos({ commit}) {
       try {
      
-      axios.get("http://localhost:3001/api/producto").then((response) => {
-        const resProd = response.data.items;
-       // commit('setToken', resDB)
-        commit('setProductos', resProd)
-        //localStorage.setItem('token', resDB)
-        console.log(resProd)
-        //console.log(resDB)
-        //console.log(response.data.data.perfil)
-        //this.$router.push({name:'about'})
+        axios.get("http://localhost:3001/api/producto").then((response) => {
+        const resProd =  response.data.items;
+        commit('setProductos', resProd)   
         return resProd
 
       });
@@ -118,6 +110,29 @@ export default new Vuex.Store({
       } catch (error) {
         console.log('error: ', error)
       }
+    },
+
+     async ListUsuarios({ commit }, token) {
+      
+      try {
+       await axios({
+          method: "GET",
+          headers: {
+            "Content-type": "application/json",
+            'auth-token': token
+          },
+          url: "http://localhost:3001/api/usuarios",
+        
+        }).then((response) => {
+          const resUsuarios = response.data.items;
+          commit('setUsuarios', resUsuarios)
+  
+        })
+      } catch (error) {
+        
+      }
+    
+    
     },
 
 

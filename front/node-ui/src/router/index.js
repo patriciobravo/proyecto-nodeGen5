@@ -4,7 +4,8 @@ import Home from '../views/Home.vue'
 import Login from '../views/Login.vue';
 import Productos from '../views/Productos.vue';
 import TipoProductos from '../views/TipoProductos.vue'
-import Home1 from '../views/home1.vue'
+import Dashboard from '../views/Dashboard.vue'
+import Usuarios from '../views/Usuarios.vue'
 
 import store from '../store'
 
@@ -26,10 +27,16 @@ const routes = [
     name: 'TipoProductos',
     component: TipoProductos
   },
+
   {
-    path: '/home1',
-    name: 'Home1',
-    component: Home1
+    path: '/usuarios',
+    name: 'Usuarios',
+    component: Usuarios
+  },
+  {
+    path: '/dashboard',
+    name: 'Dashboard',
+    component: Dashboard
   },
   {
     path: '/home',
