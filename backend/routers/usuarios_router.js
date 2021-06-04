@@ -6,8 +6,8 @@ const { getUsuarios, getIdUsuario } = require('../controllers/usuarios_controlle
 
 
 //Rutas
-router.get('/usuarios', getUsuarios);
-router.get('/usuarios/:id', getIdUsuario);
+router.get('/usuarios', AuthToken, Admin,getUsuarios);
+router.get('/usuarios/:id', AuthToken, Admin, getIdUsuario);
 
 
 module.exports = router;
