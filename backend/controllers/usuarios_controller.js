@@ -15,18 +15,19 @@ function errorHandler(data, next, err = null){
     }
   }
 
-function productoId(req, res, next, id) {
+function usuarioId(req, res, next, id) {
+console.log('aqui')
 
-
-  const Request = ModelProducto.findById(id);
+  const Request = ModelUsuarios.findById(id);
 
   Request
   // .select('-imagen')
-  .exec( (err, DocProducto) => {
+  .exec( (err, DocUsuario) => {
 
-    if( err || !DocProducto  ) return errorHandler(DocProducto, next, err)
+    if( err || !DocUsuario  ) return errorHandler(DocUsuario, next, err)
     //cargamos en el request [docProducto]
-    req.DocProducto = DocProducto;
+    req.DocUsuario = DocUsuario;
+    console.log(req.DocUsuario)
     next();
 
   })
@@ -82,9 +83,9 @@ function getUsuarios(req, res,next) {
 }
   
 //Listar tipo de productos por id
-function getIdUsuario(req, res) {
+function getIdUsuario(req, res, next) {
   
-    let id = req.params.id;  
+    let id = req.DocUsuario;  
 
     ModelUsuarios.findById( id, (err, DocUsuario) =>{
   
@@ -97,15 +98,16 @@ function getIdUsuario(req, res) {
 }
 
 //Eliminar tipo de productos por id
-function deleteProducto(req, res){
+function deleteUsuario(req, res, next){
   
-  const id = req.DocProducto;
-  ModelProducto.findByIdAndRemove( id, (err, DocProducto) => {
+  const id = req.params.id;
+  console.log(req.params.id)
+  ModelUsuarios.findByIdAndRemove( id, (err, DocUsuario) => {
 
-    if( err || !DocProducto  ) return errorHandler(DocProducto, next, err)
+    if( err || !DocUsuario  ) return errorHandler(DocUsuario, next, err)
 
     return res.json({
-      data: DocProducto
+      data: DocUsuario
     })
   })
   
@@ -133,11 +135,11 @@ function updateProducto(req, res,next){
 
 
 module.exports = {
-  productoId,
+  usuarioId,
   regProducto,
   getUsuarios,
   getIdUsuario,
-  deleteProducto,
+  deleteUsuario,
   updateProducto
   
 }
