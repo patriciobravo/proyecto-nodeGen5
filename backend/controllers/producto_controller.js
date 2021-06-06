@@ -8,7 +8,7 @@ function errorHandler(data, next, err = null){
   
     if(!data){
   
-      let error = new Error('No existe !');
+      let error = new Error('Producto no existente!');
       error.statusCode = 404;
       return next(error)
       
