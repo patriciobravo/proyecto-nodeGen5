@@ -14,6 +14,7 @@ export default new Vuex.Store({
     itemProductos: [],
     itemTipoProductos: [],
     itemUsuarios:[],
+    itemCarrito:[],
     env_loaded: 0,
   },
   mutations: {
@@ -43,6 +44,12 @@ export default new Vuex.Store({
     setUsuarios(state, payload) {
       state.itemUsuarios = payload;
       console.log(state.itemUsuarios)
+    },
+
+    setCarrito(state, payload){
+
+      state.itemCarrito = payload;
+      console.log(state.itemCarrito);
     }
 
   },
@@ -134,6 +141,25 @@ export default new Vuex.Store({
     
     
     },
+
+    ListCarrito ( {commit },idUsuario){
+
+      try {
+     
+         axios.get(`http://localhost:3001/api/carro/60bc34399d56f14378af94e8`).then((response) => {
+        const resCarrito =  response.data.items;
+       commit('setCarrito', resCarrito)   
+        //return resProd
+
+      });
+      } catch (error) {
+        console.log('error: ', error)
+      }
+
+
+    }
+
+
 
 
    

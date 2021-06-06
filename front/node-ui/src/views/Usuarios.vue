@@ -9,6 +9,11 @@
               </div>
             </div>
 
+            <div v-for="(item, index) in itemCarrito" :key="index">
+
+             <span>{{item.ProductoNom}}</span>
+           </div>
+
             <div class="col-12">
                               <h3 class="page-title">Usuarios</h3>
 
@@ -31,7 +36,7 @@
             class="ml-2"
             type="text"
             placeholder=""
-            v-model="searchProductos"
+            v-model="searchUsuarios"
           />
         </label>
       </div>
@@ -65,23 +70,23 @@
           :per-page="itemsPorPagina"
           :items="itemUsuarios"
           :current-page="currentPage"
-          :filter="searchProductos"
+          :filter="searchUsuarios"
           @filtered="onFiltered"
           :items2="paginador(itemUsuarios)"
           :fields="fields"
         >
           <template v-slot:cell(ACCIONES)="data">
             <div class="row btnSolicitud">
-              <a @click="DetailProducts(data.item)">
-                <i class="far fa-list-alt fa-2x cblue" title="Detalle Producto"></i>
-              </a>
-              <a @click="detalleSolicitud(data.item.estado)">
+              <!-- <a @click="DetailUsuario(data.item)">
+                <i class="far fa-list-alt fa-2x cblue" title="Detalle Usuario"></i>
+              </a> -->
+              <a @click="DetailUsuario(data.item._id)">
                 <i
                   class="far fa-file-alt fa-2x cblue mb-2 ml-2"
-                  title="Detalle Liquidacion"
+                  title="Detalle Usuario"
                 ></i>
               </a>
-              <a @click="DeleteProduct(data.item._id)" >
+              <a @click="DeleteUsuario(data.item._id)" >
                 <i
                   class="fa fa-trash-alt fa-2x text-danger ml-2"
                   title="Eliminar Producto"
@@ -156,7 +161,7 @@ export default {
       currentPage: 1,
       registroFinal: "",
       registroInicial: "",
-      searchProductos: "",
+      searchUsuarios: "",
       fields: [
         {
           key: "name",
@@ -279,6 +284,10 @@ export default {
               console.log(data)
     },
 
+    DetailUsuario(data) {
+      this.$refs.componente.DetailUsuario(data);
+    },
+
     OpenAddUsuario(){
        this.$refs.componente.OpenAddUsuario();
     },
@@ -333,16 +342,58 @@ export default {
 
     },
 
+    DeleteUsuario(id){
+            console.log(id)
+
+        this.$swal.fire({
+          title: 'Estas seguro de Eliminar este usuario?',
+          showDenyButton: true,
+          //showCancelButton: true,
+          confirmButtonText: `Eliminar`,
+          denyButtonText: `No Eliminar`,
+        }).then((result) => {
+
+        if (result.isConfirmed) {
+
+        
+
+            try {
+          
+            axios({
+              method: "DELETE",
+              headers: {
+                "Content-type": "application/json",
+                'auth-token': this.token
+              },
+              url: `http://localhost:3001/api/usuario/${id}`,
+            // data: id
+            }).then((response) => {
+              this.ListUsuarios(this.token);
+             // this.modalDetailProducts = false;   
+              console.log(this.token) 
+
+            });
+            } catch (error) {
+              console.log('error: ', error)
+            }
+        } else if (result.isDenied) {
+          this.$swal.fire('Usuario no eliminado', '', 'info')
+
+        }
+      })
+
+    },
+
 
 
 
   },
   
     mounted(){
-       // this.ListUsuarios(this.token);
+       this.ListUsuarios(this.token);
     },
     computed: {
-    ...mapState(["itemUsuarios","token"]),
+    ...mapState(["itemUsuarios","token", "itemCarrito"]),
     
   },
 

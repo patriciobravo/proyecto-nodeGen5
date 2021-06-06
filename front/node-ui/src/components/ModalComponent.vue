@@ -322,7 +322,7 @@
       no-fade
     >
       <div slot="modal-header">
-        <h4 class="titleDocument">Detalle Usuarios <b> {{this.usuarioNom}}</b></h4>
+        <h4 class="titleDocument">Detalle Usuarios <b> {{UsuarioNom}}</b></h4>
       </div>
 
        <div slot="default" >        
@@ -339,7 +339,7 @@
                 size="sm"
                 class="form-control"
                 placeholder="Ingrese Nombre "               
-                v-model="usuarioNom"
+                v-model="UsuarioNom"
               >
               </b-form-input>             
             </div>
@@ -353,7 +353,7 @@
                 size="sm"
                 class="form-control"
                 placeholder="Ingrese Nombre "               
-                v-model="usuarioEmail"
+                v-model="UsuarioEmail"
               >
               </b-form-input>                 
             </div>
@@ -370,25 +370,18 @@
                 size="sm"
                 class="form-control"
                 placeholder="Ingrese Nombre "               
-                v-model="usuarioPerfil"
+                v-model="UsuarioPerfil"
               >
               </b-form-input>             
             </div>
-
-           
-
           </div>
-
-
         </div>
-
-      
       </div>
       <div slot="modal-footer">
          <button
           id="btnClass"
           class="btn btn-primary btn-sm"
-          @click="AddTipoProduct"
+          @click="AddUsuario"
           v-if="isButton"
 
         >
@@ -425,14 +418,8 @@ export default {
   data() {
     return {
       modalDetailTipoProducts: false,
-      //modalDetalleImagenes: false,
-     // modalDetalleSolicitud: false,
-      //modalVerificacion: false,
-      //modalvalidacionExito: false,
       modalDetailProducts: false,
       modalAddUsuarios: false,
-      //modalImagenes: false,
-
       bntRequest: true,
       isButton: true,
       estadoSolicitud: "",
@@ -447,15 +434,15 @@ export default {
       stock: "",
       vendidos: "",
       imagen:'',
-      usuarioNom:'',
-      usuarioEmail:'',
-      usuarioPerfil:''
+      UsuarioNom:'',
+      UsuarioEmail:'',
+      UsuarioPerfil:''
     };
   },
 
   methods: {
 
-     ...mapActions(["ListTipoProductos", "ListProductos"]),
+     ...mapActions(["ListTipoProductos", "ListProductos", "ListUsuarios"]),
      
     /* Desde el componente padre */
 
@@ -529,6 +516,33 @@ export default {
       // }, 1000);
      // this.ListTipoProductos();
     },
+
+    DetailUsuario(data) {
+console.log(data)
+           try {
+     
+       axios({
+        method: "GET",
+        headers: {
+          "Content-type": "application/json",
+           'auth-token': this.token
+        },
+        url: `http://localhost:3001/api/usuarios/${data}`,
+        data: data
+      }).then((response) => {
+          const respUsuario =response.data.data
+          this.isButton = false;
+          this.modalAddUsuarios = true;         
+          this.UsuarioNom = respUsuario.name;   
+          this.UsuarioEmail = respUsuario.email;
+          this.UsuarioPerfil = respUsuario.perfil;
+          this.dataId = data;
+      });
+      } catch (error) {
+        console.log('error: ', error)
+      }
+    },
+
 
     OpenAddProducts(){
       this.isButton = true;
@@ -696,25 +710,40 @@ console.log(this.fileImage)
 
     },
 
-    onPickFile() {
+    AddUsuario(){
+
+      const data = {
+        name : this.UsuarioNom,
+        email : this.UsuarioEmail,
+        password : 'Fbravo&27',
+        perfil : this.UsuarioPerfil,
+      
+      }
+      console.log(this.token)
+      try {
      
-        this.$refs.fileInput.click();
-     
+       axios({
+        method: "POST",
+        headers: {
+          "Content-type": "application/json",
+           'auth-token': this.token
+        },
+        url: "http://localhost:3001/api/register",
+        data: data
+      }).then((response) => {
+        this.ListUsuarios(this.token);
+        this.modalAddUsuarios = false;
+        this.UsuarioEmail ="";
+        this.UsuarioPerfil ="";    
+
+      });
+      } catch (error) {
+        console.log('error: ', error)
+      }
+
     },
 
-    readFile: function (e) {
-
-        this.fileImage = e.target.files[0];
-        this.typeImg = this.fileImage.type;
-        this.previewImage = URL.createObjectURL(this.fileImage);
-
-console.log( this.fileImage)
-console.log( this.typeImg)
-console.log( this.previewImage)
-
-    },
-
-   
+  
  
 
 
@@ -748,70 +777,13 @@ console.log( this.previewImage)
 
     verImg() {
       this.modalImagenes = true;
-
-      // if(this.typeImg === 'application/pdf')
-      //     {
-      //         this.modalImagenes = true;
-      //         this.imgPreUrl=img;
-      //         setTimeout(() => {
-      //             document.getElementById("textDoc").innerHTML = tDoc;
-
-      //             let preview = document.getElementById('previewImg'),
-      //             image = document.createElement('pdf');
-      //             image.classList.add('imgUpload');
-      //             image.style.width = '100px;'
-      //             image.src =  img;
-      //             preview.innerHTML = '';
-
-      //             setTimeout(() => {
-      //                 image.style.width="97%";
-      //                 image.style.height = "100%";
-      //                 preview.append(image);
-      //             }, 500);
-      //         }, 10);
-
-      //     }
-      // else {
-
-      //     this.modalImagenes = true;
-      //     setTimeout(() => {
-      //         document.getElementById("textDoc").innerHTML = tDoc;
-
-      //         let preview = document.getElementById('previewImg'),
-      //         image = document.createElement('img');
-      //         image.classList.add('imgUpload');
-      //         image.style.width = '100px;'
-      //         image.src =  img;
-      //         preview.innerHTML = '';
-
-      //         setTimeout(() => {
-
-      //             image.style.width="97%";
-      //             image.style.height = "100%";
-      //             preview.append(image);
-      //         }, 500);
-      //     }, 10);
-      // }
     },
 
-    // deleteRequest() {
-    //   this.cargando = true;
-    //   console.log(this.cargando);
-    //   this.modalvalidacionExito = false;
-    //   // this.bntRequest = false;
-    //   setTimeout(() => {
-    //     this.cargando = false;
-    //     this.modalvalidacionExito = true;
-    //     setTimeout(() => {
-    //       document.getElementById("textmodalvalidacionExito").innerHTML =
-    //         "Solicitud eliminada!";
-    //     }, 10);
-    //   }, 300);
-    // },
+    
   },
 
    computed: {
-    ...mapState(["itemTipoProductos"]),
+    ...mapState(["itemTipoProductos","token"]),
    }
 };
 </script>

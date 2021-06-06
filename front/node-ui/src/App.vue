@@ -6,13 +6,13 @@
       <button @click="cerrarSesion">cerra sesión</button>
     </div> -->
     <b-navbar toggleable="lg" type="dark" variant="info" v-if="loaded == 1">
-      <b-navbar-brand to="/Home1"><strong>Node Js Gen 5</strong></b-navbar-brand>
+      <b-navbar-brand to="/Dashboard"><strong>Node Js Gen 5</strong></b-navbar-brand>
 
       <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
 
       <b-collapse id="nav-collapse" is-nav>
         <b-navbar-nav>
-          <b-nav-item to="/Home1">Home</b-nav-item>
+          <b-nav-item to="/dashboard">Home</b-nav-item>
           <!-- <router-link to="/Home1">Home</router-link>  -->
           <!-- <b-button v-b-toggle.sidebar-no-header>Toggle Sidebar</b-button> -->
           <!-- <b-nav-item href="#" disabled>Disabled</b-nav-item> -->
@@ -82,8 +82,8 @@ export default ({
 @import "@/styles/custom.scss";
 
 // css de bootstrap y de vue bootstrap, siempre se deben incluir
-@import "~bootstrap/scss/bootstrap.scss";
-@import "~bootstrap-vue/src/index.scss";
+// @import "~bootstrap/scss/bootstrap.scss";
+// @import "~bootstrap-vue/src/index.scss";
 
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
