@@ -1,11 +1,11 @@
 const router = require('express').Router();
 
-const { addCarro } = require('../controllers/carro_controller');
+const { addCarro, listarCarro } = require('../controllers/carro_controller');
 
 
 
 //Rutas
 router.post('/addCarro', addCarro);
-
+router.get('/carro/:id', listarCarro);
 
 module.exports = router;

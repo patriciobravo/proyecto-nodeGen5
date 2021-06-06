@@ -9,8 +9,8 @@ const validate_tipoProducto = async (val) =>{
   return response;
   
 }
-
-const schemaProducto = mongoose.Schema({
+var Schema = mongoose.Schema;
+const schemaProducto = new Schema({
   ProductoNom: {
     type: String,
     required: true,
