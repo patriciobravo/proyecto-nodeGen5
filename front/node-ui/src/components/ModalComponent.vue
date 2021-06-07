@@ -87,7 +87,7 @@
 
           <div class="row mb-2">
             <div class="col-lg-2 mt-2">
-              <span><h5><strong>Imagen</strong></h5></span>
+              <span><h5><strong>Estado</strong></h5></span>
             </div>
             <div class="col-lg-4">
                <b-form-select
@@ -108,9 +108,9 @@
               </b-form-select>
             </div>
 
-             <div class="col-lg-2 mt-2">
+             <!-- <div class="col-lg-2 mt-2">
               <span><h5><strong>Estado</strong></h5></span>
-            </div>
+            </div> -->
             
             <!-- <div class="col-lg-4">
                <button class="btn btn-primary btn-sm" @click="onPickFile">
@@ -365,16 +365,39 @@
                 ><h5><strong>Perfil</strong></h5></span
               >
             </div>
-            <div class="col-lg-4">
+            <div class="col-lg-4">             
+               <b-form-select
+                size="sm"
+                v-model="UsuarioPerfil"
+                class="form-control"
+              >      
+                <b-form-select-option value="null">
+                  Seleccione Perfil
+                </b-form-select-option>
+                <b-form-select-option value="Admin">
+                  Administrador
+                </b-form-select-option>
+                <b-form-select-option value="Cliente">
+                  Cliente
+                </b-form-select-option>
+       
+              </b-form-select>          
+            </div>
+            <div class="col-lg-2 mt-2">
+              <span
+                ><h5><strong>Contraseña</strong></h5></span
+              >
+            </div>
+            <div class="col-lg-4">             
               <b-form-input
+              type="password"
                 size="sm"
                 class="form-control"
-                placeholder="Ingrese Nombre "               
-                v-model="UsuarioPerfil"
+                placeholder="Ingrese Contraseña "               
+                v-model="UsuarioPassword"
               >
               </b-form-input>             
             </div>
-
           </div>
         
 
@@ -394,7 +417,7 @@
          <button
           id="btnClass"
           class="btn btn-primary btn-sm"
-          @click="UpTipoProduct"
+          @click="UpUsuario"
           v-if="!isButton"
         >
           Actualizar
@@ -441,6 +464,7 @@ export default {
       UsuarioNom:'',
       UsuarioEmail:'',
       UsuarioPerfil:'',
+      UsuarioPassword:'',
       resCarrito:[]
     };
   },
@@ -603,7 +627,6 @@ export default {
     imagen: this.fileImage,
     estado: this.estado_producto
   }
-console.log(this.fileImage)
       try {
      
        axios({
@@ -703,12 +726,9 @@ console.log(this.fileImage)
       console.log( this.dataId)
 
         const data = {
-     tipo_ProductosNom : this.tipo_ProductosNom,
-  //   precio : this.precio,
-  //   stock : this.stock,
-  //  // vendidos : req.body.vendidos,
-  //   producto_tipo : this.producto_tipo,
-  //   estado: this.estado_producto
+          name: req.body.name,
+          email: req.body.email,    
+          perfil: req.body.perfil
   }
 
       try {
@@ -766,6 +786,38 @@ console.log(this.fileImage)
 
     },
 
+    UpUsuario(){
+
+      console.log( this.dataId)
+
+        const data = {
+          name : this.UsuarioNom,
+          email : this.UsuarioEmail,
+          password : this.UsuarioPassword,
+          perfil : this.UsuarioPerfil,
+  }
+
+      try {
+     
+       axios({
+        method: "PUT",
+        headers: {
+          "Content-type": "application/json"
+          // 'auth-token': this.token
+        },
+        url: `http://localhost:3001/api/usuarios/${this.dataId}`,
+        data: data
+      }).then((response) => {
+         this.ListUsuarios(this.token);
+         this.modalAddUsuarios = false; 
+           this.$swal.fire('Usuario Actualizado', '', 'success')   
+
+      });
+      } catch (error) {
+        console.log('error: ', error)
+      }
+
+    },
   
  
 

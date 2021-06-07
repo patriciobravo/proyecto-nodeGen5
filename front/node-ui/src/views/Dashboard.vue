@@ -38,7 +38,7 @@ Vue.use(IconsPlugin)
 import HomeComponent from '../components/Home'
 import SideComponent from '../components/Sides.vue'
 import TopComponent from '../components/Tops.vue'
-import { mapState } from 'vuex'
+import { mapActions, mapMutations, mapState } from 'vuex'
 
 export default {
     
@@ -47,9 +47,23 @@ export default {
     TopComponent 
     },
 
+    
+
+    methods:{
+      ...mapMutations(['setUser','setPerfil']),
+      ...mapActions(['obtenerToken'])
+
+    },
+
+    created(){
+     
+       this.setUser(localStorage.getItem('user'))
+        this.setPerfil(localStorage.getItem('perfil'))
+        this.obtenerToken();
+    },
 
     computed:{
-      ...mapState(["perfil"])
+      ...mapState(["perfil", 'user'])
     }
 
 

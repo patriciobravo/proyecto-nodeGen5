@@ -107,11 +107,11 @@ export default {
        
   },
   created(){
-     this.setEnv_loaded(0)
-     const perfil = ''
-      localStorage.setItem('perfil', perfil)
-      localStorage.setItem('user', '')
-     this.setPerfil(perfil)
+    //  this.setEnv_loaded(0)
+    //  const perfil = ''
+    //   localStorage.setItem('perfil', perfil)
+    //   localStorage.setItem('user', '')
+    //  this.setPerfil(perfil)
   },
 
   computed:{

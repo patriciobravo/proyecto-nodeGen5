@@ -16,6 +16,7 @@ export default new Vuex.Store({
     itemTipoProductos: [],
     itemUsuarios:[],
     itemCarrito:[],
+    itemCompras:[],
     env_loaded: 0,
     tienda: true
   },
@@ -26,6 +27,7 @@ export default new Vuex.Store({
 
     setUser(state, payload) {
       state.user = payload
+     
     },
 
     setUsers(state, payload) {
@@ -33,9 +35,8 @@ export default new Vuex.Store({
     },
     setPerfil(state, payload) {
       state.perfil = payload
-      console.log(state.perfil)
+     
     },
-
     setProductos(state, payload) {
       state.itemProductos = payload
     },
@@ -44,19 +45,22 @@ export default new Vuex.Store({
       state.itemTipoProductos = payload
     },
 
+    setCompras(state, payload) {
+      state.itemCompras = payload
+    },
+
     setEnv_loaded(state, payload) {
       state.env_loaded = payload;
     },
 
     setUsuarios(state, payload) {
       state.itemUsuarios = payload;
-      //console.log(state.itemUsuarios)
+     
     },
 
     setCarrito(state, payload){
 
       state.itemCarrito = payload;
-      //console.log(state.itemCarrito);
     },
     setTienda(state, payload) {
       state.tienda = payload
@@ -128,6 +132,7 @@ export default new Vuex.Store({
       axios.get("http://localhost:3001/api/tipo_producto").then((response) => {
         const resTipoProd = response.data.items;
         commit('setTipoProductos', resTipoProd)
+       
 
       });
       } catch (error) {
@@ -136,7 +141,7 @@ export default new Vuex.Store({
     },
 
     async ListUsuarios({ commit }, token) {
-      
+           
       try {
        await axios({
           method: "GET",
@@ -175,7 +180,32 @@ export default new Vuex.Store({
       }
 
 
-    }
+    },
+
+    async ListCompras({ commit }, token) {
+      console.log('aqui')
+           
+      try {
+       await axios({
+          method: "GET",
+          headers: {
+            "Content-type": "application/json",
+           // 'auth-token': token
+          },
+          url: "http://localhost:3001/api/compras",
+        
+        }).then((response) => {
+          const resCompras = response.data;
+          commit('setCompras', resCompras)
+          console.log(response.data)
+  
+        })
+      } catch (error) {
+        
+      }
+    
+    
+    },
 
 
 

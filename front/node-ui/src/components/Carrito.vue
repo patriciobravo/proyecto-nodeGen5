@@ -171,12 +171,10 @@ export default {
         },
 
         addCompra(){
-
            
-           
-              const usuarioId = localStorage.getItem('idUser');
+            const usuarioId = localStorage.getItem('idUser');
          
-                        try {
+            try {
                 axios({
                     method: "GET",
                     headers: {
@@ -188,6 +186,10 @@ export default {
 
                     console.log(response.data.items)
                       this.ListCarrito(usuarioId);
+                        this.$swal.fire('Compra realizada con exito', '', 'success')   
+                        setTimeout(() => {
+                               this.$router.push("Compras").catch(()=>{ })
+                        }, 1000);
                      // this.$refs.componente.DetailCarro(response.data.items);
                     // response.data.items.forEach(item => {
                        // this.resCarrito = response.data.items;

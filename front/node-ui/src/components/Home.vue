@@ -92,7 +92,7 @@
                     <div class="d-flex flex-column m-auto">
                       <div class="stats-small__data text-center">
                         <!-- <span class="stats-small__label text-uppercase">Compras</span> -->
-                        <h6 class="stats-small__value count my-3 " id="totalCompras">{{this.itemUsuarios.length}}</h6>
+                        <h6 class="stats-small__value count my-3 " >{{this.itemUsuarios.length}}</h6>
                       </div>
                       <div class="stats-small__data">
                         <router-link to="/usuarios">Ir a Usuarios </router-link>   
@@ -108,7 +108,7 @@
                     <div class="d-flex flex-column m-auto">
                       <div class="stats-small__data text-center">
                         <span class="stats-small__label text-uppercase">Ventas</span>
-                        <h6 class="stats-small__value count my-3" id="totalVentas">0</h6>
+                        <h6 class="stats-small__value count my-3 " >{{this.itemCompras.length}}</h6>
                       </div>
                       <div class="stats-small__data">
                         <router-link to="/usuarios">Ir a Tipo Usuarios </router-link>   
@@ -123,11 +123,11 @@
                   <div class="card-body p-0 d-flex">
                     <div class="d-flex flex-column m-auto">
                       <div class="stats-small__data text-center">
-                        <span class="stats-small__label text-uppercase">Pedidos</span>
-                        <h6 class="stats-small__value count my-3" id="totalPedidos">0</h6>
+                        <span class="stats-small__label text-uppercase"></span>
+                        <h6 class="stats-small__value count my-3 " >{{this.itemCompras.length}}</h6>
                       </div>
                       <div class="stats-small__data">
-                        <router-link to="/usuarios">Ir a Ventas </router-link>   
+                        <router-link to="/ventas">Ir a Ventas </router-link>   
                       </div>
                     </div>
                     <canvas height="120" class="blog-overview-stats-small-3"></canvas>
@@ -161,27 +161,32 @@ export default {
 
     methods:{
     
-      ...mapActions(["ListProductos", "ListTipoProductos", "ListUsuarios"]),
+      ...mapActions(["ListProductos", "ListTipoProductos", "ListUsuarios", "ListCompras"]),
 
-      // obtenerUsuarios(){
+      obtenerUsuarios(){
 
-      //   if(this.perfil === 'Admin')
-      //     {
-      //       this.ListUsuarios(this.token)
-      //     }
+        if(this.perfil === 'Admin')
+          {
+          
+            this.ListUsuarios(this.token)
+           
+          }
       
-      // }
+      }
     },
 
     mounted(){
-      this.ListProductos()
-      this.ListTipoProductos()
+      this.ListProductos();
+      this.ListTipoProductos();
+      this.obtenerUsuarios();
+       this.ListCompras();
+       console.log('aqui')
 
       
     },
    
     computed: {
-    ...mapState(["itemProductos", "itemTipoProductos", "perfil", "token", "itemUsuarios","tienda"]),
+    ...mapState(["itemProductos", "itemTipoProductos", "perfil", "token", "itemUsuarios","tienda", "itemCompras"]),
     
   },
 

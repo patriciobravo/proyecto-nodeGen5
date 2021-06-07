@@ -7,6 +7,7 @@ import TipoProductos from '../views/TipoProductos.vue'
 import Dashboard from '../views/Dashboard.vue'
 import Usuarios from '../views/Usuarios.vue'
 import Compras from '../views/Compras.vue'
+import Ventas from '../views/Ventas.vue'
 
 import store from '../store'
 
@@ -43,6 +44,11 @@ const routes = [
     path: '/compras',
     name: 'Compras',
     component: Compras
+  },
+  {
+    path: '/ventas',
+    name: 'Ventas',
+    component: Ventas
   },
   {
     path: '/home',

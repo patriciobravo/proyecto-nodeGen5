@@ -20,15 +20,15 @@
                     <b-nav-form v-if="this.perfil != 'Admin'">
                         <b-nav-item to="/Compras">Mis Compras</b-nav-item>
                     </b-nav-form>
-                    <b-nav-item-dropdown right>
-                        <template #button-content>
+                    <b-nav-item-dropdown right v-if="this.perfil != 'Admin'">
+                        <template #button-content >
                             <em>
                                 <i class="fa fa-shopping-cart fa-2x text-white" aria-hidden="true"></i>
                                 <a class="icon-shopping-cart lblCartCount"> <label class="badge badge-warning" />{{itemCarrito.length}}</a>
                             </em>
                         </template>
 
-                        <div class="container p-3" v-if="itemCarrito.length > 0">
+                        <div class="container p-3" v-if="itemCarrito.length > 0 && this.perfil != 'Admin'">
                             <div id="carrito" aria-labelledby="navbarCollapse">
                                 <div class="d-block text-center" style="overflow-x: auto;">
                                     <table class="table b-table table-hover border">
@@ -64,7 +64,7 @@
                                 </b-button>
                             </div>
                         </div>
-                        <div class="text-center" v-if="itemCarrito.length === 0">
+                        <div class="text-center" v-if="itemCarrito.length === 0 && this.perfil != 'Admin'">
                             Carro vacio
                         </div>
                     </b-nav-item-dropdown>
@@ -72,10 +72,10 @@
                     <b-nav-item-dropdown right class="mt-2">
                         <!-- Using 'button-content' slot -->
                         <template #button-content>
-                            <em>Usuario {{nomUser }}</em>
+                            <em>Usuario {{ user }} </em>
                         </template>
-                        <b-dropdown-item href="#">Perfil</b-dropdown-item>
-                        <b-dropdown-item href="#">Cerrar Sesión</b-dropdown-item>
+                        <!-- <b-dropdown-item href="#">Perfil</b-dropdown-item> -->
+                        <b-dropdown-item href="#" @click="cerrarSesion">Cerrar Sesión</b-dropdown-item>
                     </b-nav-item-dropdown>
                 </b-navbar-nav>
             </b-collapse>
@@ -92,13 +92,13 @@ export default ({
 
   data() {
     return{
-      nomUser:'',
+    
     }
   }
   ,
    methods: {
-     ...mapActions(['cerrarSesion', 'ListCarrito', 'obtenerToken']),
-     ...mapMutations(['setTienda', 'setEnv_loaded']),  
+     ...mapActions(['cerrarSesion', 'ListCarrito']),
+     ...mapMutations(['setPerfil','setTienda', 'setEnv_loaded', 'setToken']),  
 
       quitarProducto(idProd){
         const data = {
@@ -144,42 +144,67 @@ export default ({
           console.log(error)
         }
       }, 
-      irAlcarrito(){
-        
+      irAlcarrito(){        
       this.setTienda(false)
       },
 
       irTienda(){
         this.setTienda(true)
+      },
+
+      cerrarSesion(){
+        this.setEnv_loaded(0)
+        localStorage.setItem('perfil', '')
+        localStorage.setItem('user', '')
+        localStorage.setItem('token', '')
+        localStorage.setItem('idUser', '')
+        this.setPerfil('')
+        this.setToken('')
+        this.$router.push("/").catch(()=>{ })
+      },
+
+      verificarLogin(){
+
+        if(localStorage.getItem('token') != '' && localStorage.getItem('perfil') != '')
+
+            {
+               this.$router.push("Dashboard").catch(()=>{ })
+            }
+       
+
+
+
       }
+
+     
     
    },
 
    mounted(){
-    this.obtenerToken();
-    this.setTienda(true);
-  
+    this.verificarLogin();
+    this.setTienda(true);    
   },
      
 
   created(){
-     this.ListCarrito(localStorage.getItem('idUser'));
+    
    setTimeout(() => {
-     this.nomUser = localStorage.getItem('user')
-     console.log('aqui')
+      this.ListCarrito(localStorage.getItem('idUser'));
+  
     if(this.perfil != '')
       {
           this.setEnv_loaded(1)
       }
-   }, 1000);
+   }, 2000);
   },
 
    computed: {
     ...mapState(["user", "itemCarrito", "users", 'token', 'perfil','env_loaded']),
      loaded() {
       return this.$store.state.env_loaded;
-    },
-   }
+    },   
+   },
+  
 
 })
 </script>

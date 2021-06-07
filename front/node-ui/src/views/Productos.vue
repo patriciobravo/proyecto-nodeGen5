@@ -366,7 +366,7 @@ export default {
 
   },
   
-    mounted(){
+    created(){
         this.ListProductos();
     },
     computed: {
