@@ -49,9 +49,7 @@
                                   <a @click="DetailTipoProducts(data.item)">
                                       <i class="far fa-list-alt fa-2x cblue" title="Detalle Producto"></i>
                                   </a>
-                                  <a @click="detalleSolicitud(data.item.estado)">
-                                      <i class="far fa-file-alt fa-2x cblue mb-2 ml-2" title="Detalle Liquidacion"></i>
-                                  </a>
+                                  
                                   <a  @click="DeleteTipoProduct(data.item._id)">
                                       <i class="fa fa-trash-alt fa-2x text-danger ml-2" title="Eliminar Tipo de producto"></i>
                                   </a>
@@ -291,6 +289,8 @@ export default {
         url: `http://localhost:3001/api/tipo_producto/${id}`,
        // data: id
       }).then((response) => {
+                         this.$swal.fire('Tipo Producto Eliminado', '', 'success')
+
          this.ListTipoProductos();
         // this.modalDetailProducts = false;   
          console.log(this.token) 

@@ -292,55 +292,6 @@ export default {
        this.$refs.componente.OpenAddUsuario();
     },
 
-    DeleteProduct(id){
-       console.log(id)
-
-    this.$swal.fire({
-  title: 'Estas seguro de Eliminar este producto?',
-  showDenyButton: true,
-  //showCancelButton: true,
-  confirmButtonText: `Eliminar`,
-  denyButtonText: `No Eliminar`,
-}).then((result) => {
-  /* Read more about isConfirmed, isDenied below */
-  if (result.isConfirmed) {
-    //this.$swal.fire('Saved!', '', 'success')
-
-     const data = {
-     ProductoNom : this.ProductoNom,
-    precio : this.precio,
-    stock : this.stock,
-   // vendidos : req.body.vendidos,
-    producto_tipo : this.producto_tipo
-  }
-         console.log(this.token) 
-
-      try {
-     
-       axios({
-        method: "DELETE",
-        headers: {
-          "Content-type": "application/json",
-           'auth-token': this.token
-        },
-        url: `http://localhost:3001/api/producto/${id}`,
-       // data: id
-      }).then((response) => {
-         this.ListProductos();
-         this.modalDetailProducts = false;   
-         console.log(this.token) 
-
-      });
-      } catch (error) {
-        console.log('error: ', error)
-      }
-  } else if (result.isDenied) {
-    this.$swal.fire('Producto no eliminado', '', 'info')
-
-  }
-})
-
-    },
 
     DeleteUsuario(id){
             console.log(id)
@@ -369,8 +320,8 @@ export default {
             // data: id
             }).then((response) => {
               this.ListUsuarios(this.token);
-             // this.modalDetailProducts = false;   
-              console.log(this.token) 
+              this.$swal.fire('Usuario eliminado', '', 'success')
+
 
             });
             } catch (error) {

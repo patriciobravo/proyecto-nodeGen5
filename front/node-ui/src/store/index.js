@@ -183,7 +183,6 @@ export default new Vuex.Store({
     },
 
     async ListCompras({ commit }, token) {
-      console.log('aqui')
            
       try {
        await axios({
@@ -197,7 +196,6 @@ export default new Vuex.Store({
         }).then((response) => {
           const resCompras = response.data;
           commit('setCompras', resCompras)
-          console.log(response.data)
   
         })
       } catch (error) {

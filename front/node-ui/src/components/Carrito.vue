@@ -83,7 +83,7 @@
                                         Se aumentó correctamente la cantidad
                                     </div>
                                 </div>
-                                <button class="btn btn-danger" type="button" data-toggle="modal" data-target="#comprarModal">Cancelar Comrpra</button>
+                                <button class="btn btn-danger" type="button" @click="vaciarCarro">Cancelar Comrpra</button>
                                                             <button class="btn btn-success ml-2" type="button" @click="addCompra">Comprar</button>
 
                             </div>
@@ -144,7 +144,7 @@
 
 <script>
 import axios from 'axios';
-import { mapActions, mapState } from 'vuex';
+import { mapActions, mapMutations, mapState } from 'vuex';
 export default {
 
     components: {
@@ -163,6 +163,7 @@ export default {
     methods:{
 
         ...mapActions(["ListCarrito"]),
+        ...mapMutations(["setTienda"]),
 
         totalCarrito(){
             this.itemCarrito.forEach(item => {
@@ -183,8 +184,7 @@ export default {
                     },
                     url: `http://localhost:3001/api/compra/${usuarioId}`,                   
                 }).then((response) => {
-
-                    console.log(response.data.items)
+                    this.vaciarCarro();
                       this.ListCarrito(usuarioId);
                         this.$swal.fire('Compra realizada con exito', '', 'success')   
                         setTimeout(() => {
@@ -203,6 +203,50 @@ export default {
                 console.log(error)
             }
         },    
+
+        vaciarCarro(){
+           
+          const usuarioId = localStorage.getItem('idUser');
+
+            this.$swal.fire({
+  title: 'Estas seguro de Eliminar Carrito de Compra?',
+  showDenyButton: true,
+  //showCancelButton: true,
+  confirmButtonText: `Eliminar`,
+  denyButtonText: `No Eliminar`,
+}).then((result) => {
+  /* Read more about isConfirmed, isDenied below */
+  if (result.isConfirmed) {
+    
+       this.totalCompra = 0;
+       try {
+          axios({
+              method: "DELETE",
+              headers: {
+              "Content-type": "application/json"
+              //'auth-token': this.token
+              },
+              url: `http://localhost:3001/api/carro/${usuarioId}`,
+           
+          }).then((response) => {
+            this.itemCarrito
+            this.ListCarrito(usuarioId);
+            this.setTienda(true)
+          });
+        } catch (error) {
+          console.log(error)
+        }
+
+     
+  } else if (result.isDenied) {
+    this.$swal.fire('Carro no eliminado', '', 'info')
+
+  }
+})
+
+       
+     
+      },
        
          
     },

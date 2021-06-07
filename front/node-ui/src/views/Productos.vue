@@ -75,12 +75,7 @@
               <a @click="DetailProducts(data.item)">
                 <i class="far fa-list-alt fa-2x cblue" title="Detalle Producto"></i>
               </a>
-              <a @click="detalleSolicitud(data.item.estado)">
-                <i
-                  class="far fa-file-alt fa-2x cblue mb-2 ml-2"
-                  title="Detalle Liquidacion"
-                ></i>
-              </a>
+             
               <a @click="DeleteProduct(data.item._id)" >
                 <i
                   class="fa fa-trash-alt fa-2x text-danger ml-2"
@@ -347,7 +342,9 @@ export default {
       }).then((response) => {
          this.ListProductos();
          this.modalDetailProducts = false;   
-         console.log(this.token) 
+       
+                    this.$swal.fire('Producto Eliminado', '', 'success')   
+
 
       });
       } catch (error) {

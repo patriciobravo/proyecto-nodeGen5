@@ -35,12 +35,11 @@
             <button class="btn btn-primary btn-block" id="login" @click.prevent="AuthLogin" v-if="!isLoggingIn">Ingresar</button>
             <button class="btn btn-primary btn-block" disabled @click.prevent="AuthLogin" v-if="isLoggingIn"><loader-component width="30"></loader-component></button>
         </div>
-        <div class="clearfix">
-            <!--<label class="pull-left checkbox-inline"><input type="checkbox"> Remember me</label>-->
+        <!-- <div class="clearfix">
               <p class="text-center"><a href="#" class="text-center">Olvidaste tu contraseña?</a></p>
         </div>
         <div class="or-seperator"><i>o</i></div>
-        <p class="text-center">Deseas <a href="#" class="regisWinplace">Registrarte</a> </p>        
+        <p class="text-center">Deseas <a href="#" class="regisWinplace">Registrarte</a> </p>         -->
     </form>
 
      </div>

@@ -200,90 +200,9 @@
               >
               </b-form-input>
              
-            </div>
-
-            <!-- <div class="col-lg-2 mt-2">
-              <span><h5><strong>Tipo Producto</strong></h5></span>
-            </div>
-            <div class="col-lg-4">
-      
-              <b-form-select
-                size="sm"
-                v-model="producto_tipo"
-                class="form-control"
-              >
-                <b-form-select-option value="null">
-                  Seleccione tipo de producto
-                </b-form-select-option>
-                <b-form-select-option
-                  v-for="(elemento, index) in itemTipoProductos"
-                  v-bind:value="elemento.tipo_ProductosNom"
-                  :key="index"
-                  >{{ elemento.tipo_ProductosNom }}
-                </b-form-select-option>
-              </b-form-select>
-            </div> -->
+            </div>   
           </div>
-
-          <!-- <div class="row mb-2">
-            <div class="col-lg-2 mt-2">
-              <span><h5><strong>Stock</strong></h5></span>
-            </div>
-            <div class="col-lg-4">
-                 <b-form-input
-                size="sm"
-                class="form-control"
-                placeholder="Ingrese Stock"              
-                v-model="stock"
-              >
-              </b-form-input>
-            </div>
-
-            <div class="col-lg-2 mt-2">
-              <span><h5><strong>Precio</strong></h5></span>
-            </div>
-            <div class="col-lg-4">
-              <b-form-input
-                size="sm"
-                class="form-control"
-                placeholder="Ingrese Precio"
-                v-model="precio"
-              >
-              </b-form-input>
-            </div>      
-          </div>
-
-          <div class="row mb-2">
-            <div class="col-lg-2 mt-2">
-              <span><h5><strong>Estado</strong></h5></span>
-            </div>
-            <div class="col-lg-4">
-               <b-form-select
-                size="sm"
-                v-model="estado_producto"
-                class="form-control"
-              >      
-                <b-form-select-option value="null">
-                  Seleccione estado
-                </b-form-select-option>
-                <b-form-select-option value="ACTIVO">
-                  ACTIVO
-                </b-form-select-option>
-                <b-form-select-option value="INACTIVO">
-                  INACTIVO
-                </b-form-select-option>
-       
-              </b-form-select>
-            </div>
-
-        
-          </div> -->
-
-                <!-- <div id="previewImg"></div> -->
-
-        </div>
-
-      
+        </div>      
       </div>
       <div slot="modal-footer">
          <button
@@ -352,7 +271,7 @@
                <b-form-input
                 size="sm"
                 class="form-control"
-                placeholder="Ingrese Nombre "               
+                placeholder="Ingrese Email "               
                 v-model="UsuarioEmail"
               >
               </b-form-input>                 
@@ -396,7 +315,8 @@
                 placeholder="Ingrese Contraseña "               
                 v-model="UsuarioPassword"
               >
-              </b-form-input>             
+              </b-form-input> 
+              <span variant="primary"><h5>Debe tener numeros,caracteres minusculas y mayusculas y caracteres @$.!%*#?& </h5></span>            
             </div>
           </div>
         
@@ -463,7 +383,7 @@ export default {
       imagen:'',
       UsuarioNom:'',
       UsuarioEmail:'',
-      UsuarioPerfil:'',
+      UsuarioPerfil:null,
       UsuarioPassword:'',
       resCarrito:[]
     };
@@ -475,11 +395,7 @@ export default {
      
     /* Desde el componente padre */
 
-    detalleSolicitud(estado) {
-      this.estadoSolicitud = estado;
-      this.modalDetalleSolicitud = true;
-    },
-
+  
     DetailProducts(data) {
       
         try {
@@ -522,28 +438,9 @@ export default {
     DetailTipoProducts(data) {
       this.isButton = false;
       this.modalDetailTipoProducts = true;         
-      this.tipo_ProductosNom = data.tipo_ProductosNom;
-      // this.createdAtProducto = data.createdAt;
-      // this.precio = data.precio;
-      // this.producto_tipo = data.producto_tipo;
-      // this.stock = data.stock,
-      // this.vendidos = data.vendidos;
-      // this.estado_producto = data.estado;
+      this.tipo_ProductosNom = data.tipo_ProductosNom;     
       this.dataId = data._id;
-      // setTimeout(() => {
-      //   let preview = document.getElementById("previewImg"),
-      //       image = document.createElement("img");
-      //     image.classList.add("imgUpload");
-      //     image.style.width = "100px;";
-      //     image.src = data.imagen;
-      //     preview.innerHTML = "";
-      //        setTimeout(() => {
-      //       image.style.width = "97%";
-      //       image.style.height = "100%";
-      //       preview.append(image);
-      //     }, 500);
-      // }, 1000);
-     // this.ListTipoProductos();
+     
     },
 
     DetailUsuario(data) {
@@ -577,12 +474,8 @@ export default {
         url: `http://localhost:3001/api/carro/${data}`,
         data: data
       }).then((response) => {
-         // response.data.items.forEach(item => {
              this.resCarrito = response.data.items;
-             console.log(this.resCarrito)
-           //  commit('setCarrito', resCarrito) 
-             
-          // });
+        
       });
       } catch (error) {
         console.log('error: ', error)
@@ -603,8 +496,6 @@ export default {
       this.isButton = true;
       this.modalDetailTipoProducts = true;    
       this.ListTipoProductos();
-      //this.producto_tipo= null;
-
     },
 
     OpenAddUsuario(){
@@ -613,8 +504,7 @@ export default {
       //this.ListTipoProductos();
       //this.producto_tipo= null;
 
-    },
-    
+    },    
 
     AddProduct(){
 
@@ -625,19 +515,20 @@ export default {
    // vendidos : req.body.vendidos,
     producto_tipo : this.producto_tipo,
     imagen: this.fileImage,
-    estado: this.estado_producto
+    estado: this.estado_producto,
   }
       try {
      
        axios({
         method: "POST",
         headers: {
-          "Content-type": "application/json"
-          // 'auth-token': this.token
+          "Content-type": "application/json",
+           'auth-token': this.token
         },
         url: "http://localhost:3001/api/producto",
         data: data
       }).then((response) => {
+        this.$swal.fire('Producto Creado', '', 'success')
         this.ListProductos();
         this.modalDetailProducts = false;
         this.ProductoNom ="",
@@ -658,20 +549,15 @@ export default {
 
       const data = {
      tipo_ProductosNom : this.tipo_ProductosNom,
-  //   precio : this.precio,
-  //   stock : this.stock,
-  //  // vendidos : req.body.vendidos,
-  //   producto_tipo : this.producto_tipo,
-  //   estado: this.estado_producto
-  }
+     }
 
       try {
      
        axios({
         method: "POST",
         headers: {
-          "Content-type": "application/json"
-          // 'auth-token': this.token
+          "Content-type": "application/json",
+          'auth-token': this.token
         },
         url: "http://localhost:3001/api/tipo_producto",
         data: data
@@ -679,17 +565,16 @@ export default {
          this.ListTipoProductos();
          this.modalDetailTipoProducts = false;  
          this.tipo_ProductosNom ="";  
+                 this.$swal.fire('Tipo Producto Creado', '', 'success')
+
 
       });
       } catch (error) {
         console.log('error: ', error)
       }
-
     },
 
     UpProduct(){
-
-      console.log( this.dataId)
 
         const data = {
      ProductoNom : this.ProductoNom,
@@ -705,14 +590,21 @@ export default {
        axios({
         method: "PUT",
         headers: {
-          "Content-type": "application/json"
-          // 'auth-token': this.token
+          "Content-type": "application/json",
+           'auth-token': this.token
         },
         url: `http://localhost:3001/api/producto/${this.dataId}`,
         data: data
       }).then((response) => {
          this.ListProductos();
          this.modalDetailProducts = false;    
+         this.$swal.fire('Producto actualizado', '', 'success')   
+         this.ProductoNom ='',
+         this.precio ='',
+         this.stock ='',
+         this.producto_tipo ='',
+         this.estado_producto = null
+
 
       });
       } catch (error) {
@@ -725,19 +617,18 @@ export default {
 
       console.log( this.dataId)
 
-        const data = {
-          name: req.body.name,
-          email: req.body.email,    
-          perfil: req.body.perfil
-  }
+      const data = {
+          tipo_ProductosNom: this.tipo_ProductosNom
+          
+      }
 
       try {
      
        axios({
         method: "PUT",
         headers: {
-          "Content-type": "application/json"
-          // 'auth-token': this.token
+          "Content-type": "application/json",
+          'auth-token': this.token
         },
         url: `http://localhost:3001/api/tipo_producto/${this.dataId}`,
         data: data
@@ -745,6 +636,7 @@ export default {
          this.ListTipoProductos();
          this.modalDetailTipoProducts = false; 
            this.$swal.fire('Tipo de producto actualizado', '', 'success')   
+           this.tipo_ProductosNom='';
 
       });
       } catch (error) {
@@ -758,11 +650,9 @@ export default {
       const data = {
         name : this.UsuarioNom,
         email : this.UsuarioEmail,
-        password : 'Fbravo&27',
+        password : this.UsuarioPassword,
         perfil : this.UsuarioPerfil,
-      
       }
-      console.log(this.token)
       try {
      
        axios({
@@ -776,8 +666,13 @@ export default {
       }).then((response) => {
         this.ListUsuarios(this.token);
         this.modalAddUsuarios = false;
+        this.UsuarioNom= "";
         this.UsuarioEmail ="";
-        this.UsuarioPerfil ="";    
+        this.UsuarioPerfil =null;
+                this.UsuarioPassword=''  
+   
+                   this.$swal.fire('Usuario Creado', '', 'success')   
+ 
 
       });
       } catch (error) {
@@ -802,15 +697,19 @@ export default {
        axios({
         method: "PUT",
         headers: {
-          "Content-type": "application/json"
-          // 'auth-token': this.token
+          "Content-type": "application/json",
+           'auth-token': this.token
         },
         url: `http://localhost:3001/api/usuarios/${this.dataId}`,
         data: data
       }).then((response) => {
          this.ListUsuarios(this.token);
          this.modalAddUsuarios = false; 
-           this.$swal.fire('Usuario Actualizado', '', 'success')   
+           this.$swal.fire('Usuario Actualizado', '', 'success') 
+           this.UsuarioNom= "";
+        this.UsuarioEmail ="";
+        this.UsuarioPerfil =null; 
+        this.UsuarioPassword=''  
 
       });
       } catch (error) {
@@ -818,52 +717,7 @@ export default {
       }
 
     },
-  
- 
-
-
-    deleteRequest() {
-      this.modalvalidacionExito = true;
-      setTimeout(() => {
-        document.getElementById("textmodalvalidacionExito").innerHTML =
-          "Esta seguro de eliminar esta solicitud?";
-      }, 10);
-    },
-
-    // checkDelete(option) {
-    //   console.log(option);
-    //   if (option === "No") {
-    //     setTimeout(() => {
-    //       document.getElementById("textmodalVerificacion").innerHTML =
-    //         "Esta solicitud no se puede eliminar";
-    //     }, 100);
-    //   } else {
-    //     setTimeout(() => {
-    //       document.getElementById("textmodalVerificacion").innerHTML =
-    //         "Esta seguro de eliminar esta solicitud?";
-    //     }, 100);
-    //   }
-    //   this.modalVerificacion = true;
-    // },
-
-    detalleDocumento() {
-      this.modalDetalleDocumento = true;
-    },
-
-    verImg() {
-      this.modalImagenes = true;
-    },
-
-    
-    
-  },
- mounted(){
-        //this.ListCarrito();
-        //console.log(this.itemCarrito)
-    },
-  created(){
-// this.ListCarrito();
-    //this.itemCarrito;
+      
   },
 
    computed: {

@@ -126,6 +126,16 @@ export default ({
       vaciarCarro(){
            
           const usuarioId = localStorage.getItem('idUser');
+
+                      this.$swal.fire({
+  title: 'Estas seguro de Eliminar Carrito de Compra?',
+  showDenyButton: true,
+  //showCancelButton: true,
+  confirmButtonText: `Eliminar`,
+  denyButtonText: `No Eliminar`,
+}).then((result) => {
+  /* Read more about isConfirmed, isDenied below */
+  if (result.isConfirmed) {
        
         try {
           axios({
@@ -139,11 +149,20 @@ export default ({
           }).then((response) => {
             this.itemCarrito
             this.ListCarrito(usuarioId);
+            this.setTienda(true)
+
           });
         } catch (error) {
           console.log(error)
         }
-      }, 
+
+  }else if (result.isDenied) {
+    this.$swal.fire('Carro no eliminado', '', 'info')
+
+  }
+});
+      },
+
       irAlcarrito(){        
       this.setTienda(false)
       },
@@ -189,7 +208,10 @@ export default ({
   created(){
     
    setTimeout(() => {
+     if(this.perfil === 'Cliente')
+     {
       this.ListCarrito(localStorage.getItem('idUser'));
+     }
   
     if(this.perfil != '')
       {
