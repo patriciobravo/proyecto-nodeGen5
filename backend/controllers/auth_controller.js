@@ -31,14 +31,15 @@ async function register(req, res) {
 
     const salt = bcrypt.genSaltSync();
 
-    const { error } = schemaRegister.validate(req.body)
+    // const { error } = schemaRegister.validate(req.body)
 
-    if (error) {
-        return res.status(400).json({ error: error.details[0].message });
-    }
+    // if (error) {
+    //     return res.status(400).json({ error: error.details[0].message });
+    // }
 
     //verificar si existe email antes de registrar
-    const checkEmail =  await ModelUsuario.findOne({ email: req.body.email });
+    const checkEmail = await ModelUsuario.findOne({ email: req.body.email });
+    console.log(req.body.password)
 
     if (checkEmail) return res.status(400).json({ error: true, message: 'email ya existe' });
 

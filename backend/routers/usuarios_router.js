@@ -9,8 +9,8 @@ router.param('usuarioId', usuarioId);
 //Rutas
 router.get('/usuarios', AuthToken, Admin,getUsuarios);
 router.get('/usuarios/:usuarioId',  getIdUsuario);
-router.put('/usuarios/:usuarioId',  updateUsuario);
-router.delete('/usuario/:id',  deleteUsuario);
+router.put('/usuarios/:usuarioId',  AuthToken, Admin, updateUsuario);
+router.delete('/usuario/:id', AuthToken, Admin,  deleteUsuario);
 
 
 module.exports = router;
