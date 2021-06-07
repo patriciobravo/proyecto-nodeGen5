@@ -103,7 +103,7 @@ async function login(req, res) {
 
     res.header('auth-token', token).json({
         error: null,
-        data: { token, perfil, name }
+        data: { token, perfil, name, payload }
     })
 
 }

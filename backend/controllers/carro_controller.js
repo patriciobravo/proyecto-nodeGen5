@@ -7,7 +7,9 @@ const addCarro = async (req, res, next) => {
 
   let productId = req.body.productId;
   let usuarioId = req.body.usuarioId;
+  const cantidadNueva = req.body.cantProducto
   console.log(productId)
+  console.log(cantidadNueva)
 
   try {
     DocProducto = await ModelProducto.findById(productId).exec()
@@ -20,7 +22,7 @@ const addCarro = async (req, res, next) => {
     
     DocUsuario = await ModelUsuarios.findById(usuarioId).exec();
     
-    const cantidadNueva = 2;
+   // const cantidadNueva = 2;
     //TODO borrar
     DocUsuario = await DocUsuario.addCarro(DocProducto,cantidadNueva);
    
@@ -39,11 +41,12 @@ const addCarro = async (req, res, next) => {
   
 
 }
-const listarCarro = (req, res)=>{
+
+const listarCarro = async (req, res)=>{
 
   console.log('listarCarro');
   //TODO borrar
-  ModelUsuarios.findById(req.params.id, 'cart').
+ await  ModelUsuarios.findById(req.params.id, 'cart').
     populate('cart.items.productId','-imagen').exec( (err, data) => {
     if(err){
       return res.json(err);
@@ -71,9 +74,55 @@ const listarCarro = (req, res)=>{
 
 }
 
+const limpiarCarro = async (req, res) => {
+
+  let DocUsuario = await ModelUsuarios.findById(req.params.id).exec()
+  console.log('before clear cart docUsuario:',DocUsuario);
+
+  DocUsuario = await DocUsuario.LimpiarCarrito();
+  console.log('after clear cart docUsuario:',DocUsuario);
+
+  return res.json(DocUsuario)
+}
+
+// Eliminar 1 Producto Carro
+const eliminarProdCarrito = async (req, res, next) => {
+  console.log('aqui')
+
+  let productId = req.body.productId;
+  let usuarioId = req.body.usuarioId;
+
+  try {
+      
+      DocProducto = await ModelProducto.findById(productId).exec();
+      console.log(DocProducto)
+  
+      if(!DocProducto){
+          err = new Error('No existe')
+          err.statusCode = 404;
+          throw(err)
+      }
+
+      DocUsuario = await ModelUsuarios.findById(usuarioId).exec();
+      DocUsuario = await DocUsuario.deleteProdCarro(DocProducto);
+
+      res.json(DocUsuario)
+
+  }catch (error) {
+
+     next(error);
+      
+  }
+
+
+
+ 
+}
 
 
 module.exports = {
-      addCarro,
-      listarCarro
+  addCarro,
+  listarCarro,
+  limpiarCarro,
+  eliminarProdCarrito
   }

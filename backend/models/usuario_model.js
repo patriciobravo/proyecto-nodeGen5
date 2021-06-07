@@ -58,13 +58,6 @@ userSchema.methods.addCarro = function(DocProducto,cantidadNueva){
     let _cantidad = 1;
     let newCartItems = [...this.cart.items];
   
-    //newCartItems[ 0, 1, 2]
-    //delete newCartItems[1]
-    //this.cart.items = newCartItems;
-    //this.save();
-  
-  
-  
     if(index >= 0){
       _cantidad = this.cart.items[index].cantidad + cantidadNueva;
       newCartItems[index].cantidad = _cantidad;
@@ -79,8 +72,45 @@ userSchema.methods.addCarro = function(DocProducto,cantidadNueva){
     
     this.cart.items = newCartItems;
     return this.save();
+}
   
+userSchema.methods.LimpiarCarrito = function(){
+
+    this.cart = { items: [] };
+    return this.save();
+  
+}
+
+userSchema.methods.deleteProdCarro = function (DocProducto) {
+
+    let index = this.cart.items.findIndex(item => {
+      return item.productId.toString() == DocProducto._id.toString()
+    });
+  
+    console.log('index', index)
+    let _cantidad = 1;
+    let newCartItems = [...this.cart.items];
+  
+    newCartItems[0, 1, 2]
+  
+    if (index >= 0) {
+      _cantidad = this.cart.items[index].cantidad - 1;
+  
+  
+      if (_cantidad === 0) {
+        newCartItems.splice(index, 1);
+        console.log('sin producto ')
+      } else {
+        newCartItems[index].cantidad = _cantidad;
+        newCartItems[index].total = newCartItems[index].total - DocProducto.precio;
+      }
+  
+    } //else {
+
+    this.cart.items = newCartItems;
+    return this.save();
   }
+  
   
   userSchema.set('toJSON', { virtuals: true });
 
