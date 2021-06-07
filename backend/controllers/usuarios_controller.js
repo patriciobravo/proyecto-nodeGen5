@@ -1,4 +1,5 @@
 const ModelUsuarios = require('../models/usuario_model');
+const bcrypt = require('bcrypt');
 
 function errorHandler(data, next, err = null){
 
@@ -16,7 +17,7 @@ function errorHandler(data, next, err = null){
   }
 
 function usuarioId(req, res, next, id) {
-console.log('aqui')
+  console.log('aqui')
 
   const Request = ModelUsuarios.findById(id);
 
@@ -114,19 +115,38 @@ function deleteUsuario(req, res, next){
 }
 
 //Actualizar tipo de producto
-function updateProducto(req, res,next){
+async function updateUsuario(req, res,next){
+  console.log('aqui en up')
 
-  const id = req.params.id;
+  const salt = bcrypt.genSaltSync();
+  console.log(salt)
 
-  ModelProducto.findByIdAndUpdate(
+
+  //const checkEmail =  await ModelUsuarios.findOne({ email: req.body.email });
+  //await console.log( 'gffg',checkEmail)
+
+  //if (checkEmail) return res.status(400).json({ error: true, message: 'email ya existe' });
+
+  const password = await bcrypt.hash(req.body.password, salt);
+
+  const id = req.DocUsuario._id;
+  console.log(id)
+  const user = {
+    name: req.body.name,
+    email: req.body.email,
+    password,
+    perfil: req.body.perfil
+  }
+
+  ModelUsuarios.findByIdAndUpdate(
     id, 
-    req.body ,
+    user,
     { new : true},
-    (err, DocProducto) =>{
-      if( err || !DocProducto  ) return errorHandler(DocProducto, next, err)
+    (err, DocUsuario) =>{
+      if( err || !DocUsuario  ) return errorHandler(DocUsuario, next, err)
 
       return res.json({
-        items: DocProducto
+        items: DocUsuario
       })
     }
   )
@@ -140,7 +160,7 @@ module.exports = {
   getUsuarios,
   getIdUsuario,
   deleteUsuario,
-  updateProducto
+  updateUsuario
   
 }
   

@@ -88,7 +88,7 @@ function getProducto(req, res,next) {
   const Request = ModelProducto.find();
 
   Request
-    //.select('-imagen')
+    .select('-imagen')
     .exec( (err, items) =>{
     
     if( err || !items  ) return errorHandler(items, next, err)

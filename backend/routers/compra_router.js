@@ -4,12 +4,14 @@
 const router = require('express').Router();
 const { 
     generarCompra,
-    listarCompras
+    listarCompras,
+    Compras
 } = require('../controllers/compra_controller');
 
 //Rutas
 router.get('/compra/:id', generarCompra);
 router.get('/compras/listar/:idUsuario', listarCompras);
+router.get('/compras', Compras);
 
 
 

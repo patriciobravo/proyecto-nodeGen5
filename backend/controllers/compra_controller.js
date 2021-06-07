@@ -48,11 +48,27 @@ const listarCompras = async (req, res, next) => {
 
 }
 
+const Compras = async (req, res, next) => {
+
+  try {
+    let docCompra = await ModelCompra.find().exec();
+    
+    res.json(docCompra);
+
+  } catch (error) {
+    next(error);
+  }
+
+
+
+}
+
 
 
 
 module.exports ={
     generarCompra,
-    listarCompras
+    listarCompras,
+    Compras
 
 }
