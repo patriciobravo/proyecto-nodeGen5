@@ -374,7 +374,11 @@
               >
               </b-form-input>             
             </div>
+
           </div>
+        
+
+       
         </div>
       </div>
       <div slot="modal-footer">
@@ -436,13 +440,14 @@ export default {
       imagen:'',
       UsuarioNom:'',
       UsuarioEmail:'',
-      UsuarioPerfil:''
+      UsuarioPerfil:'',
+      resCarrito:[]
     };
   },
 
   methods: {
 
-     ...mapActions(["ListTipoProductos", "ListProductos", "ListUsuarios"]),
+     ...mapActions(["ListTipoProductos", "ListProductos", "ListUsuarios", "ListCarrito"]),
      
     /* Desde el componente padre */
 
@@ -518,7 +523,7 @@ export default {
     },
 
     DetailUsuario(data) {
-console.log(data)
+      this.ListCarrito();
            try {
      
        axios({
@@ -538,9 +543,27 @@ console.log(data)
           this.UsuarioPerfil = respUsuario.perfil;
           this.dataId = data;
       });
+
+       axios({
+        method: "GET",
+        headers: {
+          "Content-type": "application/json",
+           'auth-token': this.token
+        },
+        url: `http://localhost:3001/api/carro/${data}`,
+        data: data
+      }).then((response) => {
+         // response.data.items.forEach(item => {
+             this.resCarrito = response.data.items;
+             console.log(this.resCarrito)
+           //  commit('setCarrito', resCarrito) 
+             
+          // });
+      });
       } catch (error) {
         console.log('error: ', error)
       }
+      
     },
 
 
@@ -780,10 +803,19 @@ console.log(this.fileImage)
     },
 
     
+    
+  },
+ mounted(){
+        //this.ListCarrito();
+        //console.log(this.itemCarrito)
+    },
+  created(){
+// this.ListCarrito();
+    //this.itemCarrito;
   },
 
    computed: {
-    ...mapState(["itemTipoProductos","token"]),
+    ...mapState(["itemTipoProductos","token", "itemCarrito"]),
    }
 };
 </script>

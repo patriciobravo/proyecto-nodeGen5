@@ -6,6 +6,7 @@ import Productos from '../views/Productos.vue';
 import TipoProductos from '../views/TipoProductos.vue'
 import Dashboard from '../views/Dashboard.vue'
 import Usuarios from '../views/Usuarios.vue'
+import Compras from '../views/Compras.vue'
 
 import store from '../store'
 
@@ -39,19 +40,16 @@ const routes = [
     component: Dashboard
   },
   {
+    path: '/compras',
+    name: 'Compras',
+    component: Compras
+  },
+  {
     path: '/home',
     name: 'Home',
     component: Home
   },
-  {
-    path: '/about',
-    name: 'about',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/About.vue'),
-    meta: { rutaProtegida: true}
-  }
+
 ]
 
 const router = new VueRouter({

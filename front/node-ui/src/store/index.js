@@ -9,6 +9,7 @@ export default new Vuex.Store({
     token: null,
     perfil: '',
     user: null,
+    users:null,
     showHome: '',
     itemSolicitudes: [],
     itemProductos: [],
@@ -16,6 +17,7 @@ export default new Vuex.Store({
     itemUsuarios:[],
     itemCarrito:[],
     env_loaded: 0,
+    tienda: true
   },
   mutations: {
     setToken(state, payload) {
@@ -25,8 +27,13 @@ export default new Vuex.Store({
     setUser(state, payload) {
       state.user = payload
     },
+
+    setUsers(state, payload) {
+      state.users = payload
+    },
     setPerfil(state, payload) {
       state.perfil = payload
+      console.log(state.perfil)
     },
 
     setProductos(state, payload) {
@@ -37,19 +44,22 @@ export default new Vuex.Store({
       state.itemTipoProductos = payload
     },
 
-    env_loaded(state, payload) {
+    setEnv_loaded(state, payload) {
       state.env_loaded = payload;
     },
 
     setUsuarios(state, payload) {
       state.itemUsuarios = payload;
-      console.log(state.itemUsuarios)
+      //console.log(state.itemUsuarios)
     },
 
     setCarrito(state, payload){
 
       state.itemCarrito = payload;
-      console.log(state.itemCarrito);
+      //console.log(state.itemCarrito);
+    },
+    setTienda(state, payload) {
+      state.tienda = payload
     }
 
   },
@@ -65,12 +75,17 @@ export default new Vuex.Store({
         },
         url: "http://localhost:3001/api/login",
         data: usuario
-      }).then((response) => {
+       }).then((response) => {
         const resDB = response.data.data.token
-        commit('setToken', resDB)
-        commit('setPerfil', response.data.data.perfil)
-        commit('setUser', response.data.data.name)
-        localStorage.setItem('token', resDB)
+        commit('setToken', resDB),
+          commit('setPerfil', response.data.data.perfil),
+          
+          commit('setUser', response.data.data.name),
+          commit('setUsers', response.data.data.payload)
+         localStorage.setItem('token', resDB)
+         localStorage.setItem('perfil', response.data.data.perfil)
+         localStorage.setItem('user', response.data.data.name)
+         localStorage.setItem('idUser', response.data.data.payload.usuarioId)
       
 
       });
@@ -82,6 +97,7 @@ export default new Vuex.Store({
     obtenerToken({ commit }) {
       if (localStorage.getItem('token')) {
         commit('setToken', localStorage.getItem('token'))
+        commit('setPerfil', localStorage.getItem('perfil'))
       }
       else {
         commit('setToken', null)
@@ -119,7 +135,7 @@ export default new Vuex.Store({
       }
     },
 
-     async ListUsuarios({ commit }, token) {
+    async ListUsuarios({ commit }, token) {
       
       try {
        await axios({
@@ -146,8 +162,10 @@ export default new Vuex.Store({
 
       try {
      
-         axios.get(`http://localhost:3001/api/carro/60bc34399d56f14378af94e8`).then((response) => {
-        const resCarrito =  response.data.items;
+         axios.get(`http://localhost:3001/api/carro/${idUsuario}`).then((response) => {
+           const resCarrito = response.data.items;
+           
+          
        commit('setCarrito', resCarrito)   
         //return resProd
 

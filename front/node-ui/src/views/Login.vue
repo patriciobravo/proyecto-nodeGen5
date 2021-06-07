@@ -73,7 +73,7 @@ export default {
 
   methods: {
     ...mapActions(["login"]),
-    ...mapMutations(["env_loaded"]),
+    ...mapMutations(["setEnv_loaded","setPerfil"]),
 
     AuthLogin() {
             this.isLoggingIn = true
@@ -81,28 +81,41 @@ export default {
            
 
             setTimeout(() => {
-               this.isLoggingIn = false
-               this.isAlertShow = true  
-                      
-               // this.perfil === 'Admin' ? 
-                setTimeout(() =>
-                 
-                this.$router.push("Dashboard").catch(()=>{ }),
-                this.env_loaded(1)
-                
-                , 1000) 
-                   
-                //: setTimeout(() => this.$router.push("About").catch(()=>{}), 1000) 
-               // setTimeout(() => this.redirect(), 1000)
+             
+               // this.perfil === 'Admin' ?
+               
+             //  setTimeout(() => {
+                 if(this.token)
+                  {
+                    this.isLoggingIn = false
+                    this.isAlertShow = true                        
+                    setTimeout(() =>
+                               
+                      this.$router.push("Dashboard").catch(()=>{ }),
+                        this.setEnv_loaded(1)
+                    
+                    , 1500) 
+                  
+                  }
+                  else{
+                     this.$swal.fire('Usuario No existe', '', 'warning')  
+                      this.isLoggingIn = false 
+                  }
+             
             }, 1000)
         },
-        // redirect(modulo) {
-        //     this.$router.push({name: modulo})
-        // }
+       
+  },
+  created(){
+     this.setEnv_loaded(0)
+     const perfil = ''
+      localStorage.setItem('perfil', perfil)
+      localStorage.setItem('user', '')
+     this.setPerfil(perfil)
   },
 
   computed:{
-    ...mapState(["perfil"])
+    ...mapState(["perfil", 'token'])
   }
 
 }
