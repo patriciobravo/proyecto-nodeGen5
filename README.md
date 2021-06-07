@@ -1,5 +1,9 @@
 # proyecto-nodeGen5
 
+Patricio Toro valdes
+patricio.andres21@gmail.com
+
+
 Se descargan front Vuejs  -> node-ui
 
 >cd node-ui  
