@@ -25,4 +25,10 @@ para instalar todos los paquetes
 *levantar el proyecto NodeJs
  >npm run dev
 
+ Al crear usuario perfil por defecto es "cliente" el cual puede agregar productos 
+ al carrito y ver sus compras
+
+ Para crear perfil Administrador es "Admin" el cual puede crear productos,tipo de productos,
+ usuarios, ver compras en general
+
 ProyectoNodeGen5.postman_collection
